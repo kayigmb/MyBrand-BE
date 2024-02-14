@@ -1,5 +1,5 @@
-import {Schema,model,Mongoose} from 'mongoose';
-import {Validator} from "validator.ts/Validator";
+import {Schema,model} from 'mongoose';
+import {body} from 'express-validator';
 
 
 const commentSchema = new Schema({
@@ -10,11 +10,11 @@ const commentSchema = new Schema({
     email: {
         type: 'string',
         required: false,
-        // validate(value:string){
-        //     if(!Validator.isEmail(value)){
-
-        //     }   
-        // }
+        validate(value:string){
+            if(!body(value).isEmail()){
+                throw new Error('wrong format email')
+            }   
+        }
     },
     comment: {
         type: 'string',

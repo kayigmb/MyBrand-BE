@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 const express_1 = __importDefault(require("express"));
 const controller_1 = require("./controller");
+// import {commentPost,commentShow} from './controllerComment'
 const router = express_1.default.Router();
 exports.router = router;
 // Blog Controllers 

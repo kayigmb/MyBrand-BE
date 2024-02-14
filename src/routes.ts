@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
-import {Blog} from "./models/blog";
+// import {Blog} from "./models/blog";
 import {Comment} from "./models/comment";
 import {blogGet,blogPost,blogUpdate,blogDelete,blogShow}  from './controller'
-import {commentPost,commentShow} from './controllerComment'
+// import {commentPost,commentShow} from './controllerComment'
 
 
 const router = express.Router();

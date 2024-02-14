@@ -1,5 +1,5 @@
 import { Schema, model } from  "mongoose"
-
+import { commentPost} from "../controllerComment"
 interface blog{
     title:string,
     author:string,
@@ -22,4 +22,4 @@ const blogSchema = new Schema<blog>({
     comments: String
 });
 
-export const Blog= model("Blog", blogSchema);
+export const Blog = model("Blog", blogSchema);

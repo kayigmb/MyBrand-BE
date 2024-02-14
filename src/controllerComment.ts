@@ -1,4 +1,4 @@
-import { Comment } from './models/comment';
+import {Comment}  from './models/comment';
 import { Blog } from './models/blog';
 import { Request, Response } from 'express';
 

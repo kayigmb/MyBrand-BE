@@ -1,13 +1,6 @@
 import {Schema,model,Types} from 'mongoose';
-import {body} from 'express-validator';
+import { comment } from '../utils/types';
 
-interface comment {
-    name:string,
-    email:string,
-    comment:string,
-    // createdAt?:Date;
-    blog: Types.ObjectId;
-}
 const commentSchema = new Schema<comment>({
     name: {
         type: 'string',
@@ -16,11 +9,6 @@ const commentSchema = new Schema<comment>({
     email: {
         type: 'string',
         required: false,
-        validate(value:string){
-            if(!body(value).isEmail()){
-                throw new Error('wrong format email')
-            }   
-        }
     },
     comment: {
         type: 'string',

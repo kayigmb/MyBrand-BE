@@ -4,7 +4,6 @@ import { Request, Response } from 'express';
 
 
 
-
 // comments show
 const commentShow = async (req: Request, res: Response) => {
     try {

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.messageShow = exports.messageCreate = void 0;
 const query_1 = require("../models/query");
-// 
+// message show 
 const messageShow = async (req, res) => {
     const messages = await query_1.Message.find();
     res.send(messages);

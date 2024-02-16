@@ -2,8 +2,8 @@ import express, { Router } from 'express';
 import {blogGet,blogPost,blogUpdate,blogDelete,blogShow}  from '../controllers/controller'
 import { messageCreate,messageShow } from '../controllers/queryController';
 import { commentPost,commentShow } from '../controllers/controllerComment';
-
-// import {commentPost,commentShow} from './controllerComment'
+import { vComments} from '../middlewares/cMiddleware';
+import { vMessage } from '../middlewares/mMiddleware';
 
 
 const router = express.Router();
@@ -31,12 +31,14 @@ router.delete("/blog/delete/:id", blogDelete);
 // query show 
 router.get("/query", messageShow)
 // query create
-router.post("/query",messageCreate);
+router.post("/query",vMessage,messageCreate);
 
 //Comment router
 // get comments from id
-router.get("/blog/:id/comment", commentShow)
-router.post("/blog/:id/comment",commentPost)
+router.get("/blog/:id/comment",commentShow)
+router.post("/blog/:id/comment",vComments,commentPost)
+
+
 
 export {router}
 

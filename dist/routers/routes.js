@@ -8,7 +8,8 @@ const express_1 = __importDefault(require("express"));
 const controller_1 = require("../controllers/controller");
 const queryController_1 = require("../controllers/queryController");
 const controllerComment_1 = require("../controllers/controllerComment");
-// import {commentPost,commentShow} from './controllerComment'
+const cMiddleware_1 = require("../middlewares/cMiddleware");
+const mMiddleware_1 = require("../middlewares/mMiddleware");
 const router = express_1.default.Router();
 exports.router = router;
 // Blog Controllers 
@@ -26,8 +27,8 @@ router.delete("/blog/delete/:id", controller_1.blogDelete);
 // query show 
 router.get("/query", queryController_1.messageShow);
 // query create
-router.post("/query", queryController_1.messageCreate);
+router.post("/query", mMiddleware_1.vMessage, queryController_1.messageCreate);
 //Comment router
 // get comments from id
 router.get("/blog/:id/comment", controllerComment_1.commentShow);
-router.post("/blog/:id/comment", controllerComment_1.commentPost);
+router.post("/blog/:id/comment", cMiddleware_1.vComments, controllerComment_1.commentPost);

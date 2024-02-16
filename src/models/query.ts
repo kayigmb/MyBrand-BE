@@ -1,11 +1,5 @@
-
 import {Schema,model}from 'mongoose'
-
-interface message {
-    name:string,
-    email:string,
-    content:string
-}
+import {message} from '../utils/types';
 
 const messageSent = new Schema<message>({
         name:{

@@ -11,11 +11,10 @@ interface comment {
 interface blog{
     title:string,
     author:string,
-    image?:string,
+    image:string,
     content:string,
     comments?: Types.ObjectId[];
-    likes?:number;
-    // Types.ObjectId[];
+    likes?:number
 }
 
 interface message {

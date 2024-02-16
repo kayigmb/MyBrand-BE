@@ -47,10 +47,8 @@ const blogPost = async (req:Request, res:Response) => {
         const blog = new Blog({
             title: req.body.title,
             author: req.body.author,
-            // comments:req.body.comment,
             image: req.body.image,
             content: req.body.content,
-
         });
         await blog.save();
         res.status(201).send(blog);

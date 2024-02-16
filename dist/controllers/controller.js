@@ -46,7 +46,6 @@ const blogPost = async (req, res) => {
         const blog = new blog_1.Blog({
             title: req.body.title,
             author: req.body.author,
-            // comments:req.body.comment,
             image: req.body.image,
             content: req.body.content,
         });

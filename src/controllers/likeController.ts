@@ -6,7 +6,7 @@ const like = async (req: Request, res: Response) => {
     try {
         const blogId = req.params.id;
 
-        const blog = await Blog.findById(blogId);
+        const blog = await Blog.findOne({ _id: blogId });
         if (!blog) {
             return res.status(404).send({ error: "blog not found" });
         }

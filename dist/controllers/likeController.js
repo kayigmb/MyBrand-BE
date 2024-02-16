@@ -5,7 +5,7 @@ const blog_1 = require("../models/blog");
 const like = async (req, res) => {
     try {
         const blogId = req.params.id;
-        const blog = await blog_1.Blog.findById(blogId);
+        const blog = await blog_1.Blog.findOne({ _id: blogId });
         if (!blog) {
             return res.status(404).send({ error: "blog not found" });
         }

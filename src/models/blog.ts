@@ -1,14 +1,15 @@
 import { Schema, model } from  "mongoose"
-import { commentPost} from "../controllerComment"
-interface blog{
-    title:string,
-    author:string,
-    image:string,
-    content:string,
-    comments:string
-}
 
-const blogSchema = new Schema<blog>({
+// import {commentPost} from "../controllerComment"
+
+// interface blog{
+//     title:string,
+//     author:string,
+//     image:string,
+//     content:string,
+// }
+
+const blogSchema = new Schema({
     title: {
         type: String,
         required: true,
@@ -18,8 +19,11 @@ const blogSchema = new Schema<blog>({
         required: true,
     },
     image: String,
-    content: String,
-    comments: String
+    content: {
+        type: String,
+        required: true,
+    }
 });
 
 export const Blog = model("Blog", blogSchema);
+

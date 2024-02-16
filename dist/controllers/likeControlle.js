@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.like = void 0;
-const blog_1 = require("./blog");
+const blog_1 = require("../models/blog");
 const like = async (req, res) => {
     try {
         const blogId = req.params.id;

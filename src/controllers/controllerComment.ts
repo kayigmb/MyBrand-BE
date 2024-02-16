@@ -11,7 +11,7 @@ const commentShow = async (req: Request, res: Response) => {
 
         const blog = await Blog.findOne({ _id: blogId });
         if (!blog) {
-            return res.status(404).send({ error: "Blog not found" });
+            return res.status(404).send({ error: "Comment not found" });
         }
 
         const comments = await Comment.find({ blog: blogId });
@@ -27,12 +27,12 @@ const commentShow = async (req: Request, res: Response) => {
 
 const commentPost = async (req: Request, res: Response) => {
     try {
-        const { name, email, commentText } = req.body;
+        const { name, email, commentText} = req.body;
         const blogId = req.params.id;
         const blog = await Blog.findOne({ _id: blogId });
 
         if (!blog) {
-            return res.status(404).send({ error: "Blog not found" });
+            return res.status(404).send({ error: "blog not found" });
         }
         const newComment = new Comment({
             name,

@@ -14,6 +14,8 @@ interface blog{
     image?:string,
     content:string,
     comments?: Types.ObjectId[];
+    likes?:number;
+    // Types.ObjectId[];
 }
 
 interface message {

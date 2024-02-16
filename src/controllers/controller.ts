@@ -49,7 +49,7 @@ const blogPost = async (req:Request, res:Response) => {
             author: req.body.author,
             // comments:req.body.comment,
             image: req.body.image,
-            content: req.body.content
+            content: req.body.content,
 
         });
         await blog.save();

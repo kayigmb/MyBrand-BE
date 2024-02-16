@@ -11,6 +11,7 @@ const controllerComment_1 = require("../controllers/controllerComment");
 const cMiddleware_1 = require("../middlewares/cMiddleware");
 const mMiddleware_1 = require("../middlewares/mMiddleware");
 const bMiddleware_1 = require("../middlewares/bMiddleware");
+const likeController_1 = require("../controllers/likeController");
 const router = express_1.default.Router();
 exports.router = router;
 // Blog Controllers 
@@ -23,8 +24,7 @@ router.post("/blog", bMiddleware_1.vBlog, controller_1.blogPost);
 router.patch("/blog/update/:id", controller_1.blogUpdate);
 // delete blog
 router.delete("/blog/delete/:id", controller_1.blogDelete);
-//router Comment
-// query router
+// QUERY ROUTER  
 // query show 
 router.get("/query", queryController_1.messageShow);
 // query create
@@ -32,4 +32,10 @@ router.post("/query", mMiddleware_1.vMessage, queryController_1.messageCreate);
 //Comment router
 // get comments from id
 router.get("/blog/:id/comment", controllerComment_1.commentShow);
+//create post 
 router.post("/blog/:id/comment", cMiddleware_1.vComments, controllerComment_1.commentPost);
+//Likes
+//like create
+router.put("/blog/:id/like", likeController_1.like);
+//like delete
+router.delete("/blog/like", likeController_1.unlike);

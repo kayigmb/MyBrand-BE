@@ -48,7 +48,7 @@ const blogPost = async (req, res) => {
             author: req.body.author,
             // comments:req.body.comment,
             image: req.body.image,
-            content: req.body.content
+            content: req.body.content,
         });
         await blog.save();
         res.status(201).send(blog);

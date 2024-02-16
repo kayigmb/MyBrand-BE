@@ -16,6 +16,7 @@ const blogSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
-    comments: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Comment' }]
+    comments: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Comment' }],
+    like: { type: mongoose_1.Schema.Types.ObjectId, ref: 'like' },
 });
 exports.Blog = (0, mongoose_1.model)("Blog", blogSchema);

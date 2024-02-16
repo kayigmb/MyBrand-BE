@@ -1,7 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
 import { router } from "./routers/routes";
-import { error } from "console";
 import dotenv from 'dotenv'
 
 dotenv.config();
@@ -15,7 +14,9 @@ mongoose
     .connect(databaseUrl)
     .then(() => {
         console.log("Connected to MongoDB.");
+
         app.use(express.json());
+        
         app.use("/blog", router);
 
         app.listen(port, () => {

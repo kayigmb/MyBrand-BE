@@ -17,6 +17,6 @@ const blogSchema = new mongoose_1.Schema({
         required: true,
     },
     comments: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Comment' }],
-    like: { type: mongoose_1.Schema.Types.ObjectId, ref: 'like' },
+    like: { type: mongoose_1.Schema.Types.ObjectId, ref: 'like', default: 0 },
 });
 exports.Blog = (0, mongoose_1.model)("Blog", blogSchema);

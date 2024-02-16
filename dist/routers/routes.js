@@ -15,27 +15,27 @@ const likeController_1 = require("../controllers/likeController");
 const router = express_1.default.Router();
 exports.router = router;
 // Blog Controllers 
-router.get("/blog", controller_1.blogShow);
+router.get("/blogs", controller_1.blogShow);
 // Get the information
-router.get("/blog/:id", controller_1.blogGet);
+router.get("/blogs/:id", controller_1.blogGet);
 // Post a new blog
-router.post("/blog", bMiddleware_1.vBlog, controller_1.blogPost);
+router.post("/blogs", bMiddleware_1.vBlog, controller_1.blogPost);
 // Update blog
-router.patch("/blog/update/:id", controller_1.blogUpdate);
+router.patch("/blogs/:id", controller_1.blogUpdate);
 // delete blog
-router.delete("/blog/delete/:id", controller_1.blogDelete);
+router.delete("/blogs/:id", controller_1.blogDelete);
 // QUERY ROUTER  
 // query show 
-router.get("/query", queryController_1.messageShow);
+router.get("/queries", queryController_1.messageShow);
 // query create
-router.post("/query", mMiddleware_1.vMessage, queryController_1.messageCreate);
+router.post("/queries", mMiddleware_1.vMessage, queryController_1.messageCreate);
 //Comment router
 // get comments from id
-router.get("/blog/:id/comment", controllerComment_1.commentShow);
+router.get("/blogs/:id/comments", controllerComment_1.commentShow);
 //create post 
-router.post("/blog/:id/comment", cMiddleware_1.vComments, controllerComment_1.commentPost);
+router.post("/blogs/:id/comments", cMiddleware_1.vComments, controllerComment_1.commentPost);
 //Likes
 //like create
-router.put("/blog/:id/like", likeController_1.like);
+router.put("/blogs/:id/likes", likeController_1.like);
 //like delete
-router.delete("/blog/like", likeController_1.unlike);
+router.delete("/blogs/:id/likes", likeController_1.unlike);

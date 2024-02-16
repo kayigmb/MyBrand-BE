@@ -60,14 +60,18 @@ exports.blogPost = blogPost;
 // Blog Update
 const blogUpdate = async (req, res) => {
     try {
+        console.log("Updating blog with ID:", req.params.id);
         const blog = await blog_1.Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!blog) {
+            console.log("Blog not found");
             return res.status(404).send({ error: "Blog not found" });
         }
+        console.log("Blog updated successfully:", blog);
         res.send(blog);
     }
     catch (error) {
-        res.status(400).send({ error: "Internal server error" });
+        console.error("Error updating blog:", error);
+        res.status(500).send({ error: "Internal server error" });
     }
 };
 exports.blogUpdate = blogUpdate;

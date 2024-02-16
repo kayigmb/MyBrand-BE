@@ -16,7 +16,7 @@ mongoose_1.default
     .then(() => {
     console.log("Connected to MongoDB.");
     app.use(express_1.default.json());
-    app.use("/blog", routes_1.router);
+    app.use("/api", routes_1.router);
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
     });
@@ -25,4 +25,3 @@ mongoose_1.default
     console.error("Error connecting to MongoDB:", error);
     process.exit(1);
 });
-// mongodb+srv://kayigm1:kayigm132@post.kwblqh9.mongodb.net/?retryWrites=true&w=majority

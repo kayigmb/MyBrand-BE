@@ -12,7 +12,7 @@ const like = async (req: Request, res: Response) => {
         }
 
         if (blog.likes !== undefined) {
-            blog.likes += 1;
+            blog.likes ++;
         } else {
             blog.likes = 0;
         }

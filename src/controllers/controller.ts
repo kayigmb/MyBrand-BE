@@ -58,17 +58,22 @@ const blogPost = async (req:Request, res:Response) => {
 }
 
 // Blog Update
-const blogUpdate = async (req:Request, res:Response) => {
+const blogUpdate = async (req: Request, res: Response) => {
     try {
+        console.log("Updating blog with ID:", req.params.id);
+        
         const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        
         if (!blog) {
+            console.log("Blog not found");
             return res.status(404).send({ error: "Blog not found" });
         }
+        
+        console.log("Blog updated successfully:", blog);
         res.send(blog);
-    } 
-    
-    catch (error) {
-        res.status(400).send({ error: "Internal server error" });
+    } catch (error) {
+        console.error("Error updating blog:", error);
+        res.status(500).send({ error: "Internal server error" });
     }
 }
 

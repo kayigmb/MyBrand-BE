@@ -12,43 +12,43 @@ const router = express.Router();
 
 
 // Blog Controllers 
-router.get("/blog", blogShow);
+router.get("/blogs", blogShow);
 
 
 // Get the information
-router.get("/blog/:id", blogGet);
+router.get("/blogs/:id", blogGet);
 
 // Post a new blog
-router.post("/blog",vBlog,blogPost);
+router.post("/blogs",vBlog,blogPost);
 
 // Update blog
-router.patch("/blog/update/:id",blogUpdate);
+router.patch("/blogs/:id",blogUpdate);
 
 // delete blog
-router.delete("/blog/delete/:id", blogDelete);
+router.delete("/blogs/:id", blogDelete);
 
 // QUERY ROUTER  
 
 // query show 
-router.get("/query", messageShow)
+router.get("/queries", messageShow)
 // query create
-router.post("/query",vMessage,messageCreate);
+router.post("/queries",vMessage,messageCreate);
 
 //Comment router
 
 // get comments from id
-router.get("/blog/:id/comment",commentShow)
+router.get("/blogs/:id/comments",commentShow)
 
 //create post 
-router.post("/blog/:id/comment",vComments,commentPost)
+router.post("/blogs/:id/comments",vComments,commentPost)
 
 //Likes
 
 //like create
-router.put("/blog/:id/like", like)
+router.put("/blogs/:id/likes", like)
 
 //like delete
-router.delete("/blog/like",unlike)
+router.delete("/blogs/:id/likes",unlike)
 
 
 export {router}

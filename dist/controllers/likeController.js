@@ -9,11 +9,12 @@ const like = async (req, res) => {
         if (!blog) {
             return res.status(404).send({ error: "blog not found" });
         }
+        blog.likes = 0;
         if (blog.likes !== undefined) {
-            blog.likes += 1;
+            blog.likes++;
         }
         else {
-            blog.likes = 0;
+            blog.likes++;
         }
         await blog.save();
         res.status(200).send({ message: "Blog liked successfully", likes: blog.likes });

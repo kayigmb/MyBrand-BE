@@ -16,8 +16,8 @@ mongoose
         console.log("Connected to MongoDB.");
 
         app.use(express.json());
-        
-        app.use("/blog", router);
+
+        app.use("/api", router);
 
         app.listen(port, () => {
             console.log(`Server is running on port ${port}`);
@@ -28,4 +28,3 @@ mongoose
         process.exit(1); 
     });
 
-// mongodb+srv://kayigm1:kayigm132@post.kwblqh9.mongodb.net/?retryWrites=true&w=majority

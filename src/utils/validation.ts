@@ -22,6 +22,14 @@ const  validateMessages = (message:message)=>{
             return messageSchema.validate(message)
 }
 
+const validateBlog= (blog:blog)=>{
+    const blogSchema = joi.object({
+        title: joi.string().required(),
+        author: joi.string().required(),
+        image: joi.string().required(),
+        content: joi.string().required()
+    })
+    return blogSchema.validate(blog)
+}
 
-
-export {validateComments,validateMessages}
+export {validateComments,validateMessages,validateBlog}

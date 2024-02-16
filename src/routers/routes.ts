@@ -4,6 +4,7 @@ import { messageCreate,messageShow } from '../controllers/queryController';
 import { commentPost,commentShow } from '../controllers/controllerComment';
 import { vComments} from '../middlewares/cMiddleware';
 import { vMessage } from '../middlewares/mMiddleware';
+import { vBlog } from '../middlewares/bMiddleware';
 
 
 const router = express.Router();
@@ -16,7 +17,7 @@ router.get("/blog", blogShow);
 router.get("/blog/:id", blogGet);
 
 // Post a new blog
-router.post("/blog",blogPost);
+router.post("/blog",vBlog,blogPost);
 
 // Update blog
 router.patch("/blog/update/:id",blogUpdate);

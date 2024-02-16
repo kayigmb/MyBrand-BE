@@ -10,6 +10,7 @@ const queryController_1 = require("../controllers/queryController");
 const controllerComment_1 = require("../controllers/controllerComment");
 const cMiddleware_1 = require("../middlewares/cMiddleware");
 const mMiddleware_1 = require("../middlewares/mMiddleware");
+const bMiddleware_1 = require("../middlewares/bMiddleware");
 const router = express_1.default.Router();
 exports.router = router;
 // Blog Controllers 
@@ -17,7 +18,7 @@ router.get("/blog", controller_1.blogShow);
 // Get the information
 router.get("/blog/:id", controller_1.blogGet);
 // Post a new blog
-router.post("/blog", controller_1.blogPost);
+router.post("/blog", bMiddleware_1.vBlog, controller_1.blogPost);
 // Update blog
 router.patch("/blog/update/:id", controller_1.blogUpdate);
 // delete blog

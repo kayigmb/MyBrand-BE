@@ -1,13 +1,14 @@
-import { Schema, model } from  "mongoose"
+import { Schema, model,Types} from  "mongoose"
 
 // import {commentPost} from "../controllerComment"
 
-// interface blog{
-//     title:string,
-//     author:string,
-//     image:string,
-//     content:string,
-// }
+interface blog{
+    title:string,
+    author:string,
+    image?:string,
+    content:string,
+    comments?: Types.ObjectId[];
+}
 
 const blogSchema = new Schema({
     title: {
@@ -22,8 +23,9 @@ const blogSchema = new Schema({
     content: {
         type: String,
         required: true,
-    }
+    },
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 });
 
-export const Blog = model("Blog", blogSchema);
+export const Blog = model<blog>("Blog", blogSchema);
 

@@ -7,6 +7,7 @@ exports.router = void 0;
 const express_1 = __importDefault(require("express"));
 const controller_1 = require("../controllers/controller");
 const queryController_1 = require("../controllers/queryController");
+const controllerComment_1 = require("../controllers/controllerComment");
 // import {commentPost,commentShow} from './controllerComment'
 const router = express_1.default.Router();
 exports.router = router;
@@ -26,3 +27,7 @@ router.delete("/blog/delete/:id", controller_1.blogDelete);
 router.get("/query", queryController_1.messageShow);
 // query create
 router.post("/query", queryController_1.messageCreate);
+//Comment router
+// get comments from id
+router.get("/blog/:id/comment", controllerComment_1.commentShow);
+router.post("/blog/:id/comment", controllerComment_1.commentPost);

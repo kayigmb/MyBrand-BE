@@ -1,8 +1,14 @@
-import {Schema,model} from 'mongoose';
+import {Schema,model,Types} from 'mongoose';
 import {body} from 'express-validator';
 
-
-const commentSchema = new Schema({
+interface comment {
+    name:string,
+    email:string,
+    comment:string,
+    // createdAt?:Date;
+    blog: Types.ObjectId;
+}
+const commentSchema = new Schema<comment>({
     name: {
         type: 'string',
         required: false
@@ -20,7 +26,13 @@ const commentSchema = new Schema({
         type: 'string',
         required: false,
     },
-    createdAt: Date,
+    // createdAt: {
+    //     type: Date,
+    // },
+    blog: {
+        type: Schema.Types.ObjectId,
+        ref: 'Blog' 
+    }
 });
 
-export const Comment = model('Comment', commentSchema);
+export const Comment = model<comment>('Comment', commentSchema);

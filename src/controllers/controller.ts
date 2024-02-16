@@ -6,9 +6,9 @@ import { Request, Response} from 'express'
 // blog show
 const blogShow = async (req:Request, res:Response) => {
     const blogs = await Blog.find();
-    // if (!blogs){
-    //     return res.status(404).send({ error: "Blog not found" });
-    // }
+    if (!blogs){
+        return res.status(404).send({ error: "Blog not found" });
+    }
     res.send(blogs);
 }
 

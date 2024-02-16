@@ -21,6 +21,12 @@ const commentSchema = new mongoose_1.Schema({
         type: 'string',
         required: false,
     },
-    createdAt: Date,
+    // createdAt: {
+    //     type: Date,
+    // },
+    blog: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'Blog'
+    }
 });
 exports.Comment = (0, mongoose_1.model)('Comment', commentSchema);

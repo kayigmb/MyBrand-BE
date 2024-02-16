@@ -1,6 +1,7 @@
 import express, { Router } from 'express';
 import {blogGet,blogPost,blogUpdate,blogDelete,blogShow}  from '../controllers/controller'
 import { messageCreate,messageShow } from '../controllers/queryController';
+import { commentPost,commentShow } from '../controllers/controllerComment';
 
 // import {commentPost,commentShow} from './controllerComment'
 
@@ -32,7 +33,10 @@ router.get("/query", messageShow)
 // query create
 router.post("/query",messageCreate);
 
-
+//Comment router
+// get comments from id
+router.get("/blog/:id/comment", commentShow)
+router.post("/blog/:id/comment",commentPost)
 
 export {router}
 

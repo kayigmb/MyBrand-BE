@@ -6,9 +6,9 @@ const blog_1 = require("../models/blog");
 // blog show
 const blogShow = async (req, res) => {
     const blogs = await blog_1.Blog.find();
-    // if (!blogs){
-    //     return res.status(404).send({ error: "Blog not found" });
-    // }
+    if (!blogs) {
+        return res.status(404).send({ error: "Blog not found" });
+    }
     res.send(blogs);
 };
 exports.blogShow = blogShow;

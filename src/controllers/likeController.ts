@@ -15,7 +15,9 @@ const like = async (req: Request, res: Response) => {
         let userId = req.cookies.userId;
 
         if (!userId) {
-            userId = uuidv4();       
+
+            userId = uuidv4();   
+                
             res.cookie('userId', userId, { maxAge: 60000 * 60 * 60 * 24 *365});            
         }
 
@@ -26,11 +28,11 @@ const like = async (req: Request, res: Response) => {
         if (userLikedIndex === -1) {
             blog.likes.push({ user: userIdObject });
             await blog.save();
-            res.status(200).send('Blog post liked successfully');
+            res.status(200).send('Blog post was liked ');
         } else {
             blog.likes.splice(userLikedIndex, 1);
             await blog.save();
-            res.status(200).send('Blog post unliked successfully');
+            res.status(200).send('Blog post was unliked');
         }
     } catch (error) {
         console.error("Internal error:", error);

@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import express,{ Request, Response } from "express";
 import { Blog } from "../models/blog";
 import { v4 as uuidv4 } from 'uuid';
 import { Types } from 'mongoose';
@@ -15,10 +15,8 @@ const like = async (req: Request, res: Response) => {
         let userId = req.cookies.userId;
 
         if (!userId) {
-            userId = uuidv4().replace(/-/g, '');
-           
-            res.cookie('userId', userId, { maxAge: 60000*60 * 60 * 24 *365});
-            
+            userId = uuidv4();       
+            res.cookie('userId', userId, { maxAge: 60000 * 60 * 60 * 24 *365});            
         }
 
         const userIdObject = Types.ObjectId.createFromTime(parseInt(userId, 16));

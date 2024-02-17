@@ -12,7 +12,7 @@ const validateComments = (comment:comment)=>{
 
         return commentSchema.validate(comment);
 }
-
+// validate messages
 const  validateMessages = (message:message)=>{
             const messageSchema = joi.object({
                 name: joi.string().required(),
@@ -22,6 +22,7 @@ const  validateMessages = (message:message)=>{
             return messageSchema.validate(message)
 }
 
+//  validate Blog
 const validateBlog= (blog:blog)=>{
     const blogSchema = joi.object({
         title: joi.string().required(),

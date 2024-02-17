@@ -18,11 +18,13 @@ mongoose
     .connect(databaseUrl)
     .then(() => {
         console.log("Connected to MongoDB.");
-
+        
         app.use(express.json());
 
+        // cookie parser secret
         app.use(cookieParser('like'));
 
+        //Routers 
         app.use("/api", blogRouter);
         app.use("/api", cRouter);
         app.use("/api", qRouter);

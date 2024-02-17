@@ -1,6 +1,6 @@
 import { Blog } from '../models/blog'
 import { Request, Response} from 'express'
-
+import { validateBlog } from '../utils/validation';
 // const comments = require('./models/comments')
 
 // blog show
@@ -41,21 +41,26 @@ const blogDelete = async (req:Request, res:Response) => {
 }
 
 // Post a new blog
-const blogPost = async (req:Request, res:Response) => {
+const blogPost = async (req: Request, res: Response) => {
     try {
+        const { title, author, image, content } = req.body;
 
         const blog = new Blog({
-            title: req.body.title,
-            author: req.body.author,
-            image: req.body.image,
-            content: req.body.content,
+            title,
+            author,
+            image,
+            content,
         });
+
         await blog.save();
+
         res.status(201).send(blog);
     } catch (error) {
-        res.status(400).send({ error: "Internal server error" });
+        console.error("Error creating blog:", error);
+        res.status(500).send({ error: "Internal server error" });
     }
 }
+
 
 // Blog Update
 const blogUpdate = async (req: Request, res: Response) => {

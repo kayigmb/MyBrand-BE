@@ -1,6 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
-import { router } from "./routers/routes";
+import {blogRouter} from "./routers/bRoute";
+import { cRouter } from "./routers/cRoute";
+import { likeRouter } from "./routers/likeroute";
+import { qRouter } from "./routers/qRoute";
 import dotenv from 'dotenv'
 
 dotenv.config();
@@ -16,8 +19,10 @@ mongoose
         console.log("Connected to MongoDB.");
 
         app.use(express.json());
-
-        app.use("/api", router);
+        app.use("/api", blogRouter);
+        app.use("/api", cRouter);
+        app.use("/api", qRouter);
+        app.use("/api", likeRouter);
 
         app.listen(port, () => {
             console.log(`Server is running on port ${port}`);

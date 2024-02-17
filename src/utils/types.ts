@@ -13,7 +13,6 @@ interface blog{
     author:string,
     image:string,
     content:string,
-    comments?: Types.ObjectId[];
     likes?:number
 }
 

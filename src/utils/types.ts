@@ -1,4 +1,4 @@
-import {Types} from "mongoose"
+import {ObjectId, Types} from "mongoose"
 
 interface comment {
     name:string,
@@ -13,7 +13,7 @@ interface blog{
     author:string,
     image:string,
     content:string,
-    likes?:number
+    likes:[{ user: Types.ObjectId }];
 }
 
 interface message {

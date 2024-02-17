@@ -15,7 +15,7 @@ const blogSchema = new Schema({
         type: String,
         required: true,
     },
-    like:{ type:Number, ref: 'like', default:0 },
+    likes:[{ user: { type: Schema.Types.ObjectId, ref: 'User' } }],
 });
 
 export const Blog = model<blog>("Blog", blogSchema);

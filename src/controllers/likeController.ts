@@ -1,55 +1,43 @@
 import { Request, Response } from "express";
 import { Blog } from "../models/blog";
-
+import { v4 as uuidv4 } from 'uuid';
+import { Types } from 'mongoose';
 
 const like = async (req: Request, res: Response) => {
     try {
         const blogId = req.params.id;
-
-        const blog = await Blog.findOne({ _id: blogId });
-        if (!blog) {
-            return res.status(404).send({ error: "blog not found" });
-        }
-
-        if (blog.likes !== undefined) {
-            blog.likes ++;
-        } else {
-            blog.likes = 0;
-        }
-
-        await blog.save();
-
-        res.status(200).send({ message: "Blog liked successfully", likes: blog.likes });
-    } catch (error) {
-        console.error("Error liking blog:", error);
-        res.status(500).send({ error: "Internal server error" });
-    }
-};
-
-const unlike = async(req:Request,res:Response)=>{
- try {
-        const blogId = req.params.id;
-
         const blog = await Blog.findById(blogId);
+
         if (!blog) {
-            return res.status(404).send({ error: "blog not found" });
+            return res.status(404).send({ error: "Blog not found" });
         }
 
-        if (blog.likes !== undefined && blog.likes > 0) {
-            blog.likes -= 1;
+        let userId = req.cookies.userId;
+
+        if (!userId) {
+            userId = uuidv4().replace(/-/g, '');
+           
+            res.cookie('userId', userId, { maxAge: 60000*60 * 60 * 24 *365});
+            
+        }
+
+        const userIdObject = Types.ObjectId.createFromTime(parseInt(userId, 16));
+
+        const userLikedIndex = blog.likes.findIndex(like => like.user.equals(userIdObject));
+
+        if (userLikedIndex === -1) {
+            blog.likes.push({ user: userIdObject });
+            await blog.save();
+            res.status(200).send('Blog post liked successfully');
         } else {
-            blog.likes = 0;
+            blog.likes.splice(userLikedIndex, 1);
+            await blog.save();
+            res.status(200).send('Blog post unliked successfully');
         }
-
-        await blog.save();
-
-        res.status(200).send({ message: "Blog unliked successfully", likes: blog.likes });
     } catch (error) {
-        console.error("Error liking blog:", error);
-        res.status(500).send({ error: "Internal server error" });
+        console.error("Internal error:", error);
+        res.status(500).send({ error: "Error with liking" });
     }
-}   
+}
 
-
-
-export { like,unlike};
+export { like };

@@ -5,6 +5,7 @@ import { cRouter } from "./routers/cRoute";
 import { likeRouter } from "./routers/likeroute";
 import { qRouter } from "./routers/qRoute";
 import dotenv from 'dotenv'
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
@@ -19,6 +20,9 @@ mongoose
         console.log("Connected to MongoDB.");
 
         app.use(express.json());
+
+        app.use(cookieParser('like'));
+
         app.use("/api", blogRouter);
         app.use("/api", cRouter);
         app.use("/api", qRouter);

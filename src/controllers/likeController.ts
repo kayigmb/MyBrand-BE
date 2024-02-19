@@ -28,11 +28,11 @@ const like = async (req: Request, res: Response) => {
         if (userLikedIndex === -1) {
             blog.likes.push({ user: userIdObject });
             await blog.save();
-            res.status(200).send('Blog post was liked ');
+            res.status(200).send('Blog post liked ');
         } else {
             blog.likes.splice(userLikedIndex, 1);
             await blog.save();
-            res.status(200).send('Blog post was unliked');
+            res.status(200).send('Blog post unliked');
         }
     } catch (error) {
         console.error("Internal error:", error);

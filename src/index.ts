@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import { router } from "./routers/routes";
 import {blogRouter} from "./routers/bRoute";
 import { cRouter } from "./routers/cRoute";
 import { likeRouter } from "./routers/likeroute";
@@ -25,11 +26,8 @@ mongoose
         app.use(cookieParser('like'));
 
         //Routers 
-        app.use("/api", blogRouter);
-        app.use("/api", cRouter);
-        app.use("/api", qRouter);
-        app.use("/api", likeRouter);
-
+        app.use("/api", router);
+        
         app.listen(port, () => {
             console.log(`Server is running on port ${port}`);
         });

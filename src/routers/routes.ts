@@ -9,7 +9,7 @@ import { vComments} from '../middlewares/cMiddleware';
 import { messageCreate,messageShow } from '../controllers/queryController';
 import { vMessage } from '../middlewares/mMiddleware';
 
-import {like} from '../controllers/likeController'
+import {like,likeShow} from '../controllers/likeController'
 
 
 
@@ -54,6 +54,7 @@ router.post("/queries",vMessage,messageCreate);
 
 //like create
 router.put("/blogs/:id/likes", like)
+router.get("/blogs/:id/likes", likeShow)
 
 
 

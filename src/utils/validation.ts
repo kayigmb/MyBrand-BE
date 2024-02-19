@@ -7,6 +7,7 @@ const validateComments = (comment:comment)=>{
         const commentSchema = joi.object({
             name: joi.string().required(),
             email:joi.string().email().required(),
+            image: joi.string().required(),
             comment: joi.string().required()
         })
 
@@ -24,7 +25,7 @@ const  validateMessages = (message:message)=>{
 
 //  validate Blog
 const validateBlog= (blog:blog)=>{
-    const blogSchema = joi.object({
+    const blogSchema = joi.object({     
         title: joi.string().required(),
         author: joi.string().required(),
         image: joi.string().required(),

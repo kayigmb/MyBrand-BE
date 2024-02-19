@@ -1,7 +1,8 @@
 import { Blog } from '../models/blog'
 import { Request, Response} from 'express'
-import { validateBlog } from '../utils/validation';
-// const comments = require('./models/comments')
+import { Comment } from '../models/comment';
+import { cloudinary } from '../utils/cloudinary';
+
 
 // blog show
 const blogShow = async (req:Request, res:Response) => {
@@ -30,11 +31,17 @@ const blogGet = async (req:Request, res:Response) => {
 // Blog delete
 const blogDelete = async (req:Request, res:Response) => {
     try {
-        const blog = await Blog.findByIdAndDelete(req.params.id);
-        if (!blog) {
+        const blogId = req.params.id;
+
+        const blogDelete = await Blog.findByIdAndDelete(blogId);
+        
+        await Comment.deleteMany({blog:blogId});
+    
+        if (!blogDelete) {
             return res.status(404).send({ error: "Blog not found" });
         }
         res.status(204).send();
+        
     } catch (error) {
         res.status(500).send({ error: "Internal server error" });
     }
@@ -43,18 +50,25 @@ const blogDelete = async (req:Request, res:Response) => {
 // Post a new blog
 const blogPost = async (req: Request, res: Response) => {
     try {
-        const { title, author, image, content } = req.body;
+        const { title, author,image,content } = req.body;
+
+        // if(!req.file){
+        //     return res.status(404).json({ error: "no file" });
+        // }
+        // const result = await cloudinary.uploader.upload(req.file.path)
 
         const blog = new Blog({
             title,
             author,
+            // image:result.secure_url,
             image,
             content,
         });
 
+        console.log(req);
         await blog.save();
 
-        res.status(201).send(blog);
+        res.status(201).json(blog);
     } catch (error) {
         console.error("Error creating blog:", error);
         res.status(500).send({ error: "Internal server error" });

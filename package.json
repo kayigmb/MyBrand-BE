@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/kayigmb/MyBrand-BE#readme",
   "dependencies": {
+    "@types/multer": "^1.4.11",
+    "body-parser": "^1.20.2",
     "cloudinary": "^2.0.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.4",
@@ -24,6 +26,7 @@
     "express-validator": "^7.0.1",
     "joi": "^17.12.1",
     "mongoose": "^8.1.2",
+    "multer": "^1.4.5-lts.1",
     "rimraf": "^5.0.5",
     "uuid": "^9.0.1",
     "validator": "^13.11.0",

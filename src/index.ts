@@ -1,13 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 import { router } from "./routers/routes";
-import {blogRouter} from "./routers/bRoute";
-import { cRouter } from "./routers/cRoute";
-import { likeRouter } from "./routers/likeroute";
-import { qRouter } from "./routers/qRoute";
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser';
-
+// import bodyParser from "body-parser";
 dotenv.config();
 
 const app = express();
@@ -22,6 +18,7 @@ mongoose
         
         app.use(express.json());
 
+        // app.use(bodyParser.json());
         // cookie parser secret
         app.use(cookieParser('like'));
 

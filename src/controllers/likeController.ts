@@ -40,4 +40,23 @@ const like = async (req: Request, res: Response) => {
     }
 }
 
-export { like };
+const likeShow = async (req:Request, res:Response) => {
+    try{
+        const blogId = req.params.id;
+        const blog = await Blog.findById(blogId);
+
+        if (!blog) {
+            return res.status(404).send({ error: "Blog not found" });
+        }
+        const likes = blog.likes.length;
+        res.status(200).json({ likes});
+        
+    }catch (error) {
+        console.log(error);
+        res.status(404).send('error finding likes count');
+
+    }
+}
+
+
+export { like, likeShow};

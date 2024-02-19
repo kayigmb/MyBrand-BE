@@ -8,6 +8,9 @@ declare global {
         [key: string]: string | undefined;
         PORT: string;
         DATABASE_URL: string;
+        CLOUD_NAME: string;
+        API_KEY: string;
+        API_SECRET: string;
       }
     }
   }

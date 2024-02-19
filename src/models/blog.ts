@@ -3,17 +3,14 @@ import {blog} from '../utils/types';
 
 const blogSchema = new Schema({
     title: {
-        type: String,
-        required: true,
+        type: String
     },
     author: {
-        type: String,
-        required: true,
+        type: String
     },
     image: String,
     content: {
-        type: String,
-        required: true,
+        type: String
     },
     likes:[{ user: { type: Schema.Types.ObjectId, ref: 'User' } }],
 });

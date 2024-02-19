@@ -26,7 +26,7 @@ const commentShow = async (req: Request, res: Response) => {
 
 const commentPost = async (req: Request, res: Response) => {
     try {
-        const { name, email, commentText} = req.body;
+        const { name, email, comment} = req.body;
         const blogId = req.params.id;
         const blog = await Blog.findOne({ _id: blogId });
 
@@ -36,7 +36,7 @@ const commentPost = async (req: Request, res: Response) => {
         const newComment = new Comment({
             name,
             email,
-            comment: commentText,
+            comment,
             blog: blog._id
         });
 

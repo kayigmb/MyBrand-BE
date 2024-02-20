@@ -22,5 +22,9 @@ interface message {
     content:string
 }
 
+interface User{
+    user: string,
+    password:string,
+}
 
-export {comment,blog, message}
+export {comment,blog, message,User}

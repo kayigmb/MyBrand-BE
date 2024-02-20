@@ -2,8 +2,10 @@ import express from "express";
 import mongoose from "mongoose";
 import { router } from "./routers/routes";
 import dotenv from 'dotenv'
-import cookieParser from 'cookie-parser';
-// import bodyParser from "body-parser";
+import bodyParser from "body-parser";
+import session from 'express-session';
+
+
 dotenv.config();
 
 const app = express();
@@ -18,9 +20,13 @@ mongoose
         
         app.use(express.json());
 
-        // app.use(bodyParser.json());
-        // cookie parser secret
-        app.use(cookieParser('like'));
+        app.use(session({
+            secret: 'user', 
+            resave: false,
+            saveUninitialized: false
+        }));    
+
+        app.use(bodyParser.urlencoded({ extended: false }));
 
         //Routers 
         app.use("/api", router);

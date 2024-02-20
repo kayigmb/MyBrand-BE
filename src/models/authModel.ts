@@ -12,8 +12,12 @@ const UserSchema = new Schema<User>({
     password: {
       type: String,
       required: true
+    },
+    admin: {
+      type: Boolean,
+      required: true
     }
-  });
+});
   
 // to hash the password
 UserSchema.pre(

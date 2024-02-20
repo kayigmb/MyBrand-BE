@@ -4,10 +4,10 @@ import jwt from 'jsonwebtoken';
 import '../middlewares/auth'
 
 const loginJwt = async (req: Request, res: Response, next: NextFunction) => {
-    passport.authenticate('signin', async (err: Error, user: any, info: any) => {
+    passport.authenticate('signin', async (err: Error, user: any) => {
         try {
             if (err || !user) {
-                return res.status(401).json({ message: 'Authentication failed' });
+                return res.status(401).json({ message: 'Username and Password is required' });
             }
 
             req.login(user, { session: false }, async (error) => {
@@ -15,7 +15,7 @@ const loginJwt = async (req: Request, res: Response, next: NextFunction) => {
                     return next(error);
                 }
 
-                const body = { _id: user._id, user: user.user }; // Customize payload as needed
+                const body = { _id: user._id, user: user.user };
                 const token = jwt.sign({ user: body }, 'accessToken');
 
                 return res.json({ token });

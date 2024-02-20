@@ -6,11 +6,11 @@ import {like,likeShow} from '../controllers/likeController'
 import passport from 'passport';
 import '../middlewares/auth'
 import {vBlog,vUser,vMessage,vComments} from '../middlewares/valid'
-
+import { checkAuth } from '../middlewares/checkAuth';
 
 const router = express.Router();
 
-// import { genPassword } from '../passport/passportUtils';
+
 
 // Blog Controllers 
 router.get("/blogs", blogShow);
@@ -20,7 +20,7 @@ router.get("/blogs", blogShow);
 router.get("/blogs/:id", blogGet);
 
 // Post a new blog
-router.post("/blogs",vBlog,blogPost);
+router.post("/blogs",checkAuth,vBlog,blogPost);
 
 // Update blog
 router.patch("/blogs/:id",blogUpdate);

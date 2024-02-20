@@ -52,24 +52,29 @@ const blogDelete = async (req:Request, res:Response) => {
 const blogPost = async (req: Request, res: Response) => {
     try {
         const { title, author,image,content } = req.body;
-
-        // if(!req.file){
+        const blogDB = await Blog.findOne({title:title})
+    // if(!req.file){
         //     return res.status(404).json({ error: "no file" });
         // }
         // const result = await cloudinary.uploader.upload(req.file.path)
+        if(blogDB) {
+            res.status(409).send("title be used before")
+        }
+        else 
+        {
+            const blog = new Blog({
+                title,
+                author,
+                // image:result.secure_url,
+                image,
+                content,
+            });
 
-        const blog = new Blog({
-            title,
-            author,
-            // image:result.secure_url,
-            image,
-            content,
-        });
+            console.log(req);
+            await blog.save();
 
-        console.log(req);
-        await blog.save();
-
-        res.status(201).json(blog);
+            res.status(201).json(blog);
+        }
     } catch (error) {
         console.error("Error creating blog:", error);
         res.status(500).send({ error: "Internal server error" });

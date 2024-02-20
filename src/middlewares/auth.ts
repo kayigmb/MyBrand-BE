@@ -19,10 +19,12 @@ passport.use(
             return done(null,false,{ message: 'Username already exists' });
 
           }
+          else{
+            const newUser = await UserModel.create({ user, password });
   
-          const newUser = await UserModel.create({ user, password });
-  
-          return done(null, newUser);
+            return done(null, newUser);
+          }
+          
         } catch (error) {
           return done(error);
         }

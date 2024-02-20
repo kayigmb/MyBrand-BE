@@ -25,6 +25,7 @@ interface message {
 interface User{
     user: string,
     password:string,
+    admin?:boolean
 }
 
 export {comment,blog, message,User}

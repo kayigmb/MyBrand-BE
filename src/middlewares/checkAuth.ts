@@ -1,6 +1,7 @@
-import {NextFunction, Request,Response} from 'express'
+import {NextFunction, Request,Response, response} from 'express'
 import passport from 'passport';
-
+import { User } from '../utils/types';
+import { UserModel } from '../models/authModel';
 
 const checkAuth = (req:Request, res:Response,next:NextFunction) => {
     try{
@@ -21,8 +22,30 @@ const checkAuth = (req:Request, res:Response,next:NextFunction) => {
 
         }
 }   
+const checkAdmin = async(req:Request, res:Response,next:NextFunction) => {
+        try{
+            
+            const userExist = req.user
 
-export {checkAuth}
+            const userExisting = await UserModel.findOne(userExist)
+
+            if(userExisting?.admin === true){
+                next()
+            }
+            else{
+                console.error("User not admin")
+                res.status(401).send({message:"User is not an admin"})
+            }
+
+
+        }catch(err){
+            console.log(err);
+            res.status(404).send("Internal error");
+        }
+}
+
+
+export {checkAuth,checkAdmin}
 
 
 

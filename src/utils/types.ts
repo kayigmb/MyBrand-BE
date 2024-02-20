@@ -25,7 +25,8 @@ interface message {
 interface User{
     user: string,
     password:string,
-    admin?:boolean
+    admin?:boolean;
 }
+interface UserLogin extends Pick<User, 'password'> {}
 
-export {comment,blog, message,User}
+export {comment,blog, message,User,UserLogin}

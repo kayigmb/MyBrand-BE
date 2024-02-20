@@ -6,7 +6,7 @@ import {like,likeShow} from '../controllers/likeController'
 import passport from 'passport';
 import '../controllers/authentication'
 import {vBlog,vUser,vMessage,vComments} from '../middlewares/valid'
-import { checkAuth } from '../middlewares/checkAuth';
+import { checkAuth,checkAdmin } from '../middlewares/checkAuth';
 
 const router = express.Router();
 
@@ -41,7 +41,9 @@ router.post("/blogs/:id/comments",vComments,commentPost)
 // QUERY ROUTER  
 
 // query show 
-router.get("/queries", messageShow)
+
+router.get("/queries", checkAuth,checkAdmin, messageShow) // can be dread by only the admin
+
 // query create
 router.post("/queries",vMessage,messageCreate);
 
@@ -57,8 +59,11 @@ router.get("/blogs/:id/likes", likeShow)
 
 
 router.post(
+
     '/signup',vUser,
+
     passport.authenticate('signup', { session: false }),
+
     async (req: Request, res: Response) => {
       res.json({
         message: 'Signup successful',
@@ -67,7 +72,10 @@ router.post(
     }
   );
 
+
+
 import { loginJwt } from '../middlewares/jwt';
+
 router.post("/signin",vUser,loginJwt);
 
 // router.post("/logout",logout);

@@ -1,6 +1,6 @@
 import express, {Response,Request} from 'express'
 import { validateMessages } from "../utils/validation";
-import { validateBlog,validateUser } from "../utils/validation";
+import { validateBlog,validateUser,validateLogin } from "../utils/validation";
 import { validateComments } from '../utils/validation'
 
 
@@ -20,7 +20,7 @@ const vBlog = async(req:Request, res:Response,next:Function) => {
 
 const vUser = async(req:Request, res:Response,next:Function) => {
     try{
-        const {error} = validateUser(req.body);
+        const {error} = validateLogin(req.body);
         if (error) {
             return res.status(400).send({ error: error.details[0].message });
         } 

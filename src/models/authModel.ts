@@ -2,6 +2,7 @@ import { User } from "../utils/types";
 import { Schema,Types,model} from "mongoose"
 
 import bcrypt from "bcrypt"
+import { boolean, string } from "joi";
 
 const UserSchema = new Schema<User>({
     user: {
@@ -15,7 +16,7 @@ const UserSchema = new Schema<User>({
     },
     admin: {
       type: Boolean,
-      required: true
+      default: false
     }
 });
   

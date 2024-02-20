@@ -6,31 +6,30 @@ import { Strategy as JWTstrategy, ExtractJwt as ExtractJWT} from 'passport-jwt';
 
 // sign up
 passport.use(
-    'signup',
-    new LocalStrategy(
-      {
-        usernameField: 'user',
-        passwordField: 'password'
-      },
-      async (user, password, done) => {
-        try {
-          const existingUser = await UserModel.findOne({ user });
-          if (existingUser) {
-            return done(null,false,{ message: 'Username already exists' });
-
-          }
-          else{
-            const newUser = await UserModel.create({ user, password });
-  
-            return done(null, newUser);
-          }
-          
-        } catch (error) {
-          return done(error);
+  'signup',
+  new LocalStrategy(
+    {
+      usernameField: 'user',
+      passwordField: 'password',
+      passReqToCallback: true 
+    },
+    async (req, user, password, done) => {
+      const { admin } = req.body; 
+      try {
+        const existingUser = await UserModel.findOne({ user });
+        
+        if (existingUser) {
+          return done(null, 'User already exists');
+        } else {
+          const newUser = await UserModel.create({ user, password, admin });
+          return done(null, newUser);
         }
+      } catch (error) {
+        done(error);
       }
-    )
-  );
+    }
+  )
+);
 
 
 // login

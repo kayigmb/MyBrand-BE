@@ -37,9 +37,18 @@ const validateBlog= (blog:blog)=>{
 const validateUser = (user:User) =>{
     const userSchema = joi.object({
         user:joi.string().required().min(3).max(20),
-        password:joi.string().min(6).max(30).required()
+        password:joi.string().min(6).max(30).required(),
+        admin: joi.boolean().required()
+    })
+    return userSchema.validate(user)
+}
+const validateLogin = (user:User) =>{
+    const userSchema = joi.object({
+        user:joi.string().required().min(3).max(20),
+        password:joi.string().min(6).max(30).required(),
     })
     return userSchema.validate(user)
 }
 
-export {validateComments,validateMessages,validateBlog,validateUser}
+
+export {validateComments,validateMessages,validateBlog,validateUser,validateLogin}

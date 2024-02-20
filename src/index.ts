@@ -4,7 +4,7 @@ import { router } from "./routers/routes";
 import dotenv from 'dotenv'
 import bodyParser from "body-parser";
 import session from 'express-session';
-
+import cookieParser from 'cookie-parser'
 
 dotenv.config();
 
@@ -24,7 +24,8 @@ mongoose
             secret: 'user', 
             resave: false,
             saveUninitialized: false
-        }));    
+        }));  
+        app.use(cookieParser());  
 
         app.use(bodyParser.urlencoded({ extended: false }));
 

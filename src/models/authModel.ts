@@ -20,6 +20,7 @@ const UserSchema = new Schema<User>({
 });
   
 // to hash the password
+
 UserSchema.pre(
 'save',
 async function(next) {
@@ -27,7 +28,7 @@ async function(next) {
     const hash = await bcrypt.hash(this.password, 10);
 
     this.password = hash;
-    next();
+    next(); 
 }
 );
 

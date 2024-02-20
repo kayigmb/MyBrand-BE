@@ -7,7 +7,7 @@ const loginJwt = async (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate('signin', async (err: Error, user: any) => {
         try {
             if (err || !user) {
-                return res.status(401).json({ message: 'Username and Password is required' });
+                return res.status(401).json({ message: 'Username Required' });
             }
 
             req.login(user, { session: false }, async (error) => {

@@ -27,7 +27,7 @@ const  validateMessages = (message:message)=>{
 const validateBlog= (blog:blog)=>{
     const blogSchema = joi.object({     
         title: joi.string().required(),
-        author: joi.string().required(),
+        // author: joi.string().required(),
         image: joi.string().required(),
         content: joi.string().required()
     })

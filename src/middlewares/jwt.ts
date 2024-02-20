@@ -1,7 +1,7 @@
 import express,{Request,Response,NextFunction} from 'express'
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
-import '../controllers/auth'
+import '../controllers/authentication'
 
 const loginJwt = async (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate('signin', async (err: Error, user: any) => {

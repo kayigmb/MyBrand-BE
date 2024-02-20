@@ -4,7 +4,7 @@ import { commentPost,commentShow} from '../controllers/controllerComment';
 import { messageCreate,messageShow } from '../controllers/queryController';
 import {like,likeShow} from '../controllers/likeController'
 import passport from 'passport';
-import '../controllers/auth'
+import '../controllers/authentication'
 import {vBlog,vUser,vMessage,vComments} from '../middlewares/valid'
 import { checkAuth } from '../middlewares/checkAuth';
 
@@ -23,7 +23,7 @@ router.get("/blogs/:id", blogGet);
 router.post("/blogs",checkAuth,vBlog,blogPost);
 
 // Update blog
-router.patch("/blogs/:id",blogUpdate);
+router.patch("/blogs/:id",checkAuth,blogUpdate);
 
 // delete blog
 router.delete("/blogs/:id", blogDelete);
@@ -73,10 +73,10 @@ router.post("/signin",vUser,loginJwt);
 // router.post("/logout",logout);
 
 router.get(
-    '/user',
+    '/users',
     passport.authenticate('jwt', { session: false }),(req, res, next) => {
       res.json({
-        message: 'You made it to the secure route',
+        message: 'User Section',
         user: req.user,
         token: req.query.secret_token
       })

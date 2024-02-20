@@ -4,7 +4,7 @@ import { commentPost,commentShow} from '../controllers/controllerComment';
 import { messageCreate,messageShow } from '../controllers/queryController';
 import {like,likeShow} from '../controllers/likeController'
 import passport from 'passport';
-import '../middlewares/auth'
+import '../controllers/auth'
 import {vBlog,vUser,vMessage,vComments} from '../middlewares/valid'
 import { checkAuth } from '../middlewares/checkAuth';
 
@@ -67,7 +67,7 @@ router.post(
     }
   );
 
-import { loginJwt } from '../utils/jwt';
+import { loginJwt } from '../middlewares/jwt';
 router.post("/signin",vUser,loginJwt);
 
 // router.post("/logout",logout);

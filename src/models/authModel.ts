@@ -1,6 +1,5 @@
 import { User } from "../utils/types";
 import { Schema,Types,model} from "mongoose"
-import passportLocalMongoose from  "passport-local-mongoose"
 import bcrypt from "bcrypt"
 
 const UserSchema = new Schema<User>({

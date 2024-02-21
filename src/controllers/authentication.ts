@@ -5,25 +5,42 @@ import { Strategy as JWTstrategy, ExtractJwt as ExtractJWT} from 'passport-jwt';
 
 
 // sign up
+// ...
+
 passport.use(
   'signup',
   new LocalStrategy(
     {
-      usernameField: 'user',
+      usernameField: 'username', 
       passwordField: 'password',
       passReqToCallback: true 
     },
-    async (req, user, password, done) => {
-      const { admin } = req.body; 
+    async (req, username, password, done) => {
+      const { admin } = req.body;
+
       try {
-        const existingUser = await UserModel.findOne({ user });
-        
-        if (existingUser) {
-          return done(null, 'User already exists');
-        } else {
-          const newUser = await UserModel.create({ user, password, admin });
-          return done(null, newUser);
-        }
+        const newUser = await UserModel.create({ username, password, admin });
+        return done(null, newUser);
+      } catch (error) {
+        done(error);
+      }
+    }
+  )
+);
+passport.use(
+  'signupAdmin',
+  new LocalStrategy(
+    {
+      usernameField: 'username', 
+      passwordField: 'password',
+      passReqToCallback: true 
+    },
+    async (req, username, password, done) => {
+      const { admin } = req.body;
+
+      try {
+        const newUser = await UserModel.create({ username, password, admin:true });
+        return done(null, newUser);
       } catch (error) {
         done(error);
       }
@@ -32,18 +49,20 @@ passport.use(
 );
 
 
+
+
 // login
 
 passport.use(
     'signin',
     new LocalStrategy(
         {
-            usernameField: 'user',
+            usernameField: 'username',
             passwordField: 'password'
         },
-        async (user, password, done) => {
+        async (username, password, done) => {
             try {
-                const existingUser = await UserModel.findOne({ user});
+                const existingUser = await UserModel.findOne({ username});
                 if (!existingUser) {
                     return done(null, false, { message: 'User not found' });
                 }

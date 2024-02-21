@@ -13,7 +13,7 @@ interface blog{
     author:string,
     image:string,
     content:string,
-    likes:[{ user: Types.ObjectId }];
+    likes:{ user: Types.ObjectId }[];
 }
 
 interface message {
@@ -23,10 +23,11 @@ interface message {
 }
 
 interface User{
-    user: string,
+    username: string,
     password:string,
-    admin?:boolean;
+    admin?:Boolean;
+    blogsCreated?:Types.ObjectId[]
 }
-interface UserLogin extends Pick<User, 'password'> {}
 
-export {comment,blog, message,User,UserLogin}
+
+export {comment,blog, message,User}

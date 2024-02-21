@@ -16,6 +16,7 @@ const databaseUrl = process.env.DATABASE_URL;
 mongoose
     .connect(databaseUrl)
     .then(() => {
+        
         console.log("Connected to MongoDB.");
         
         app.use(express.json());
@@ -25,9 +26,11 @@ mongoose
             resave: false,
             saveUninitialized: false
         }));  
+
         app.use(cookieParser());  
 
         app.use(bodyParser.urlencoded({ extended: false }));
+        app.use(express.urlencoded({extended: false}))
 
         //Routers 
         app.use("/api", router);

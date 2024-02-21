@@ -27,4 +27,3 @@ const loginJwt = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 export { loginJwt };
-

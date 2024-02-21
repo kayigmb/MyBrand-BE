@@ -1,7 +1,7 @@
 import { Blog } from '../models/blog'
 import express, { NextFunction, Request, Response} from 'express'
 import { Comment } from '../models/comment';
-import { cloudinary } from '../utils/cloudinary';
+import { cloudinary} from '../utils/cloudinary';
 import { Readable } from 'stream';
 import { User } from '../utils/types';
 import { UserModel } from '../models/authModel';
@@ -51,44 +51,54 @@ const blogDelete = async (req:Request, res:Response) => {
     }
 }
 
+
+
 // Post a new blog
-const blogPost = async (req: Request, res: Response) => {
+const blogPost = async (req:Request, res:Response) => {
     try {
-        const { title,image,content } = req.body;
-        const blogDB = await Blog.findOne({title:title})
-        
-        
-        const userExist = req.user
-        const userExisting = await UserModel.findOne(userExist)
+        upload.single('image')(req, res, async (err) => {
+            try {
+                if (err) return res.status(500).send({ error: "Error uploading" });
 
-        // if(!req.file){
-        //     return res.status(404).json({ error: "no file" });
-        // }
-        // const result = await cloudinary.uploader.upload(req.file.path)
+                if (!req.file) return res.status(404).send({ error: "Error uploading, file not found" });
 
-        if(blogDB) {
-            res.status(409).send("title was used before")
-        }
-        else 
-        {
-            const blog = new Blog({
-                title,
-                author: userExisting?.user,
-                // image:result.secure_url,
-                image,
-                content,
-            });
+                const resultFile = await cloudinary.uploader.upload(req.file.path);
 
-            await blog.save();
+                const { title, content } = req.body;
 
-            res.status(201).json(blog);
-        }
+                const blogDB = await Blog.findOne({ title });
+
+                const userExist = req.user;
+                const userExisting = await UserModel.findOne(userExist);
+
+                if (blogDB) {
+                    return res.status(409).send("Title already exists");
+                } else {
+                    const blog = new Blog({
+                        title,
+                        author: userExisting?.username,
+                        image: resultFile.url,
+                        content,
+                    });
+
+                    await blog.save();
+
+                    // Update user's blogsCreated array
+                    // userExisting?.blogsCreated?.push(blog._id);
+                    // await userExisting?.save();
+
+                    return res.status(201).json(blog);
+                }
+            } catch (error) {
+                console.error("Error creating blog:", error);
+                return res.status(500).send({ error: "Internal server error" });
+            }
+        });
     } catch (error) {
-        console.error("Error creating blog:", error);
-
-        res.status(500).send({ error: "Internal server error" });
+        console.log(error);
+        return res.status(500).send({ error: "Internal server error" });
     }
-}
+};
 
 
 // Blog Update

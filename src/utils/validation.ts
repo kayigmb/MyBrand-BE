@@ -7,7 +7,6 @@ const validateComments = (comment:comment)=>{
         const commentSchema = joi.object({
             name: joi.string().required(),
             email:joi.string().email().required(),
-            image: joi.string().required(),
             comment: joi.string().required()
         })
 
@@ -27,7 +26,6 @@ const  validateMessages = (message:message)=>{
 const validateBlog= (blog:blog)=>{
     const blogSchema = joi.object({     
         title: joi.string().required(),
-        // author: joi.string().required(),
         image: joi.string().required(),
         content: joi.string().required()
     })
@@ -36,16 +34,19 @@ const validateBlog= (blog:blog)=>{
 
 const validateUser = (user:User) =>{
     const userSchema = joi.object({
-        user:joi.string().required().min(3).max(20),
+
+        username:joi.string().required().min(3).max(20),
         password:joi.string().min(6).max(30).required(),
-        admin: joi.boolean().required()
+        admin:joi.boolean().required()
+        
     })
     return userSchema.validate(user)
 }
+
 const validateLogin = (user:User) =>{
     const userSchema = joi.object({
-        user:joi.string().required().min(3).max(20),
-        password:joi.string().min(6).max(30).required(),
+        username:joi.string().required().min(3).max(20),
+        password:joi.string().min(6).max(30).required()
     })
     return userSchema.validate(user)
 }

@@ -1,11 +1,10 @@
 import { User } from "../utils/types";
 import { Schema,Types,model} from "mongoose"
-
 import bcrypt from "bcrypt"
-import { boolean, string } from "joi";
+
 
 const UserSchema = new Schema<User>({
-    user: {
+    username: {
       type: String,
       required: true,
       unique: true
@@ -14,22 +13,25 @@ const UserSchema = new Schema<User>({
       type: String,
       required: true
     },
+
     admin: {
-      type: Boolean,
+      type: Boolean, 
       default: false
-    }
+  },
+
+    blogsCreated:[{ type: Schema.Types.ObjectId, ref: 'Blog' }]
 });
   
 // to hash the password
 
 UserSchema.pre(
-'save',
-async function(next) {
-    const user = this;
-    const hash = await bcrypt.hash(this.password, 10);
+    'save',
+            async function(next) {
+                const username = this;
+                const hash = await bcrypt.hash(this.password, 10);
 
-    this.password = hash;
-    next(); 
+            this.password = hash;
+        next(); 
 }
 );
 
@@ -38,7 +40,7 @@ export const isValidPassword = async function(user: User, password: string) {
     return compare;
 }
   
-export const UserModel = model<User>('user', UserSchema);
+export const UserModel = model<User>('userAccess', UserSchema);
   
 
 

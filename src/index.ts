@@ -1,10 +1,12 @@
-import express from "express";
+import express, {NextFunction, Request,Response} from "express";
 import mongoose from "mongoose";
 import { router } from "./routers/routes";
 import dotenv from 'dotenv'
 import bodyParser from "body-parser";
 import session from 'express-session';
 import cookieParser from 'cookie-parser'
+import passport from "passport";
+import './utils/passport'
 
 dotenv.config();
 
@@ -20,17 +22,17 @@ mongoose
         console.log("Connected to MongoDB.");
         
         app.use(express.json());
-
+        
         app.use(session({
-            secret: 'user', 
+            secret: 'jwt', 
             resave: false,
-            saveUninitialized: false
+            saveUninitialized: true
         }));  
 
-        app.use(cookieParser());  
 
+        app.use(cookieParser());  
         app.use(bodyParser.urlencoded({ extended: false }));
-        app.use(express.urlencoded({extended: false}))
+        app.use(express.urlencoded({extended: false})) 
 
         //Routers 
         app.use("/api", router);

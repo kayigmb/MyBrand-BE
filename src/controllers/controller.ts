@@ -2,7 +2,6 @@ import { Blog } from '../models/blog'
 import express, { NextFunction, Request, Response} from 'express'
 import { Comment } from '../models/comment';
 import { cloudinary} from '../utils/cloudinary';
-import { Readable } from 'stream';
 import { User } from '../utils/types';
 import { UserModel } from '../models/authModel';
 import { upload } from '../utils/multer';
@@ -60,7 +59,7 @@ const blogPost = async (req:Request, res:Response) => {
             try {
                 if (err) return res.status(500).send({ error: "Error uploading" });
 
-                if (!req.file) return res.status(404).send({ error: "Error uploading, file not found" });
+                if (!req.file) return res.status(403).send({ error: "Error uploading, file not found" });
 
                 const resultFile = await cloudinary.uploader.upload(req.file.path);
 
@@ -84,7 +83,9 @@ const blogPost = async (req:Request, res:Response) => {
                     await blog.save();
 
                     // Update user's blogsCreated array
-                    // userExisting?.blogsCreated?.push(blog._id);
+                    // userExisting?.blogsCreated?.push(
+                    //     blog.id
+                    // );
                     // await userExisting?.save();
 
                     return res.status(201).json(blog);

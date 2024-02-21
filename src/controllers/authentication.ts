@@ -1,97 +1,75 @@
+import express, {Request,Response} from "express";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import { UserModel,isValidPassword } from "../models/authModel";
+import crypto from "crypto"
+import flash from "express-flash";
+import { UserModel } from "../models/authModel";
 import { Strategy as JWTstrategy, ExtractJwt as ExtractJWT} from 'passport-jwt';
+import bcrypt from 'bcrypt'
+import '../utils/passport'
 
 
-// sign up
-// ...
+const registerUser = async(req:Request,res:Response)=>{
+        try{
 
-passport.use(
-  'signup',
-  new LocalStrategy(
-    {
-      usernameField: 'username', 
-      passwordField: 'password',
-      passReqToCallback: true 
-    },
-    async (req, username, password, done) => {
-      const { admin } = req.body;
+            const {username, password} = req.body           
+            
+            const userExist =  await UserModel.findOne({username: username});
 
-      try {
-        const newUser = await UserModel.create({ username, password, admin });
-        return done(null, newUser);
-      } catch (error) {
-        done(error);
-      }
-    }
-  )
-);
-passport.use(
-  'signupAdmin',
-  new LocalStrategy(
-    {
-      usernameField: 'username', 
-      passwordField: 'password',
-      passReqToCallback: true 
-    },
-    async (req, username, password, done) => {
-      const { admin } = req.body;
+            if(userExist) return res.status(409).json('user already exists')
 
-      try {
-        const newUser = await UserModel.create({ username, password, admin:true });
-        return done(null, newUser);
-      } catch (error) {
-        done(error);
-      }
-    }
-  )
-);
+            const hashPassword = await bcrypt.hash(password, 10);
 
+            const newUser = new UserModel({
+                username: username,
+                password: hashPassword
+            })
 
+            await newUser.save();
 
-
-// login
-
-passport.use(
-    'signin',
-    new LocalStrategy(
-        {
-            usernameField: 'username',
-            passwordField: 'password'
-        },
-        async (username, password, done) => {
-            try {
-                const existingUser = await UserModel.findOne({ username});
-                if (!existingUser) {
-                    return done(null, false, { message: 'User not found' });
-                }
-                const isValid = await isValidPassword(existingUser, password); 
-                if (!isValid) {
-                    return done(null, false, { message: 'Wrong password' });
-                }
-                return done(null, existingUser, { message: 'Logged in Successfully' });
-            } catch (error) {
-                return done(error); 
-            }
+            res.status(201).send(newUser)
         }
-    )
-);
+        catch(err){
+            console.error(err);
+            res.status(500).send("Error internal server")
+
+        }
+}
 
 
+const registerAdmin = async(req:Request,res:Response)=>{
+    try{
 
-passport.use(
-  new JWTstrategy(
-    {
-      secretOrKey: 'accessToken',
-      jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
-    },
-    async (token, done) => {
-      try {
-        return done(null, token.user);
-      } catch (error) {
-        done(error);
-      }
+        const {username, password} = req.body
+
+        const userExist =  await UserModel.findOne({username: username});
+
+        if(userExist) return res.status(409).json('user already exists')
+
+        const hashPassword = await bcrypt.hash(password, 10);
+
+        const newUser = new UserModel({
+            username: username,
+            password: hashPassword,
+            admin: true
+        })
+
+        await newUser.save();
+        res.status(201).send(newUser)
+    }   
+    catch(err){
+        console.error(err);
+        res.status(500).send("Error internal server")
+
     }
-  )
-);  
+}
+
+
+const login = {
+    
+}
+
+
+
+
+export {registerUser,registerAdmin,login}

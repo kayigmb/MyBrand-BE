@@ -30,16 +30,14 @@ import session from 'express-session';
 //         }
 // }   
 
-const checkAuth = (req: Request, res: Response, next: NextFunction) => {
-    passport.authenticate('jwt', { session: false }, (err:Error, user:any) => {
-        if (err) {
-            return res.status(500).send("Internal error");
-        }
-        if (!user) {
-            return res.status(401).send("No access found");
-        }
-        req.user = user;
-        next();
-    })(req, res, next);
-};
+const checkAuth = (req:Request, res:Response,next:NextFunction) => {
+                
+            if(req.isAuthenticated()){
+                return next();
+            }
+            else{
+                res.status(401).send("No access found");
+            }
+}
+
 export {checkAuth}

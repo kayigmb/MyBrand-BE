@@ -10,7 +10,6 @@ import session from 'express-session';
 
 
 
-
 passport.use(
     new JWTstrategy(
       {
@@ -27,7 +26,7 @@ passport.use(
 
           done(error);
 
-        }
+        } 
       }
     )
   );

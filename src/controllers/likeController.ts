@@ -40,6 +40,7 @@ const like = async (req: Request, res: Response) => {
     }
 }
 
+
 const likeShow = async (req:Request, res:Response) => {
     try{
         const blogId = req.params.id;

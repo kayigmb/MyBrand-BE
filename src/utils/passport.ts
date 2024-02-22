@@ -1,12 +1,6 @@
 import passport from 'passport';
-import jwt from 'jsonwebtoken';
 import { Strategy as JWTstrategy, ExtractJwt as ExtractJWT } from 'passport-jwt';
-import session from 'express-session';
-import { Strategy as LocalStrategy } from 'passport-local';
-import { JwtPayload } from './types';
-import { UserModel } from '../models/authModel';
-import bcrypt from 'bcrypt';
-import '../utils/jwt'
+
 
 
 

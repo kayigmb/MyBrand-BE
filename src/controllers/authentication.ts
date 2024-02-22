@@ -43,7 +43,12 @@ const signup = async (username: string, password: any, done: Function) => {
     }
 };
 
-passport.use('signup', new LocalStrategy(fields, signup));
+passport.use(
+
+    'signup', 
+        new LocalStrategy(fields, signup)
+
+);
 
 
 const registerAdmin = async(req:Request,res:Response)=>{

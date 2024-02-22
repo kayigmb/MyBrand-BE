@@ -36,8 +36,7 @@ const validateUser = (user:User) =>{
     const userSchema = joi.object({
 
         username:joi.string().required().min(3).max(20),
-        password:joi.string().min(6).max(30).required(),
-        admin:joi.boolean().required()
+        password:joi.string().min(6).max(30).required()
         
     })
     return userSchema.validate(user)

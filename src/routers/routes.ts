@@ -4,35 +4,34 @@ import { commentPost,commentShow} from '../controllers/controllerComment';
 import { messageCreate,messageShow } from '../controllers/queryController';
 import {like,likeShow} from '../controllers/likeController'
 import passport from 'passport';
-import flash from 'express-flash';
 import '../controllers/authentication'
 import {validBlog,validUser,validMessage,validComments} from '../middlewares/valid'
 import { registerAdmin} from '../controllers/authentication';
 import '../utils/jwt'
 import Jwt from 'jsonwebtoken'
-import { checkAuth } from '../middlewares/checkAuth';
+import { checkAuth,checkAdmin } from '../middlewares/checkAuth';
 import '../utils/passport'
 const router = express.Router();
 
 
 
 // Blog Controllers 
-router.get("/blogs",checkAuth, blogShow);
+router.get("/blogs", blogShow);
 
 
 // Get the information
-router.get("/blogs/:id",checkAuth, blogGet);
+router.get("/blogs/:id", blogGet);
 
 // Post a new blog
 
 //validBLog
-router.post("/blogs",blogPost);
+router.post("/blogs",checkAuth,blogPost);
 
 // Update blog
-router.patch("/blogs/:id",blogUpdate);
+router.patch("/blogs/:id",checkAuth,blogUpdate);
 
 // delete blog
-router.delete("/blogs/:id", blogDelete);
+router.delete("/blogs/:id",checkAuth, blogDelete);
 
 
 //Comment router
@@ -47,7 +46,7 @@ router.post("/blogs/:id/comments",validComments,commentPost)
 // QUERY ROUTER  
 
 // query show 
-router.get("/queries",checkAuth,messageShow) // can be read by only the admin
+router.get("/queries",checkAuth,checkAdmin,messageShow) // can be read by only the admin
 
 // query create
 router.post("/queries",validMessage,messageCreate);
@@ -70,6 +69,7 @@ router.get('/protected',
 
 
 router.post('/signup', 
+  validUser,
     passport.authenticate('signup', { session: false }),
     async (req: Request, res: Response, next: NextFunction) => {
         res.json({
@@ -78,29 +78,37 @@ router.post('/signup',
     }
 );
 
-router.post("/signin",(req: Request, res: Response, next: NextFunction) => {
-  passport.authenticate('login', { session: false }, (err:any, user:any, info:any) => {
-    if (err) {
-      return next(err);
-    }
-    
-    if (!user) {
-      return res.status(401).json({ message: info.message });
-    }
-    
-    const body = { _id: user._id, email: user.username };
-    const token = Jwt.sign({ user: body }, 'token');
-    
-    res.status(200).json({
-     username: user?.username,
-     admin: user?.admin,
-     id:user?.id,
-     token: token
-    })
-    
-  })(req, res, next);
-}
-)
+router.post("/signin",validUser,(req: Request, res: Response, next: NextFunction) => {
 
+  passport.authenticate('login', { session: false }, (err:any, user:any, info:any) => {
+        if (err) {
+
+          return next(err);
+
+        }
+        
+
+        if (!user) {
+
+          return res.status(401).json({ message: info.message });
+
+        }
+        
+
+        const body = { _id: user._id, username: user.username, admin:user.admin };
+
+        const token = Jwt.sign({ user: body }, 'token');
+          
+        res.status(200).json({
+            username: user?.username,
+            admin: user?.admin,
+            id:user?.id,
+            token: token
+        })
+        
+  })(req, res, next);
+})
+
+// router.post('/admin', registerAdmin)
 export {router}
 

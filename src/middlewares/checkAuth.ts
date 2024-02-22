@@ -12,21 +12,38 @@ import Jwt from 'jsonwebtoken';
 const checkAuth = (req: Request, res: Response, next: NextFunction) => {
     
     passport.authenticate('jwt', { session: false }, (err:Error, user:any, info:any) => {
-        
+    
             if (!user) {
                 return res.status(401).json({ message: 'Unauthorized Access' });
             }
 
         next();
     })(req, res, next);
+  
 
+};
+
+const checkAdmin = (req: Request, res: Response, next: NextFunction) => {
     
+    passport.authenticate('jwt', { session: false }, (err:Error, user:any, info:any) => {
+
+            if (!user) {
+                return res.status(401).json({ message: 'Invalid User' });
+            }
+
+            if(!user.admin === true) {
+                return res.status(401).send({ message: 'Only Admin access' });
+            }
+
+        next();
+    })(req, res, next);
+  
 
 };
 
 
 
-export {checkAuth}
+export {checkAuth,checkAdmin}
 
 
   

@@ -8,7 +8,7 @@ const validBlog = async(req:Request, res:Response,next:Function) => {
     try{
         const {error} = validateBlog(req.body);
         if (error) {
-            return res.status(400).send({ error: error.details[0].message });
+            return res.status(404).send({ error: error.details[0].message });
         } 
         next();
     } catch(error){
@@ -22,7 +22,7 @@ const validUser = async(req:Request, res:Response,next:Function) => {
     try{
         const {error} = validateLogin(req.body);
         if (error) {
-            return res.status(400).send({ error: error.details[0].message });
+            return res.status(404).send({ error: `${error.details[0].message}` });
         } 
         next();
     } catch(error){
@@ -38,7 +38,7 @@ const validComments = async (req:Request, res:Response, next:Function) => {
     try {
         const { error } = validateComments(req.body);
         if (error) {
-            return res.status(400).send({ error: error.details[0].message });
+            return res.status(404).send({ error: error.details[0].message });
         }
         next(); 
     } catch (error) {
@@ -53,7 +53,8 @@ const validMessage = async (req:Request,res:Response,next:Function)=>{
             const { error } = validateMessages(req.body);
 
             if(error) {
-                return res.status(400).send({error:error.details[0].message});
+                console.log(error)
+                return res.status(404).send({error:error.details[0].message});
             }
              next(); 
         } catch (error) {

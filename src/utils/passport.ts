@@ -12,7 +12,6 @@ const options = {
 
 const verify =  async (token:any, done:any) => {
     try {
-
       return done(null, token.user);
     } catch (error) {
       done(error);

@@ -49,6 +49,7 @@ const likeShow = async (req:Request, res:Response) => {
         if (!blog) {
             return res.status(404).send({ error: "Blog not found" });
         }
+        
         const likes = blog.likes.length;
         res.status(200).json({ likes});
         

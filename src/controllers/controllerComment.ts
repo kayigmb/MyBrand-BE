@@ -14,7 +14,7 @@ const commentShow = async (req: Request, res: Response) => {
         }
 
         const comments = await Comment.find({ blog: blogId });
-        res.send(comments);
+        res.status(201).send(comments);
     } catch (error) {
         console.error("Error fetching comments:", error);
         res.status(500).send({ error: "Internal server error" });

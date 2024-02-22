@@ -20,7 +20,7 @@ const messageCreate = async (req:Request, res:Response) => {
             res.status(201).send(message)
 
     } catch(err){
-                res.status(404).send({error: 'unable to send a message'})
+                res.status(500).send({error: 'Internal Server Error'})
     }
 }
 

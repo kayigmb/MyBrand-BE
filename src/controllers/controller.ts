@@ -43,7 +43,7 @@ const blogDelete = async (req:Request, res:Response) => {
         if (!blogDelete) {
             return res.status(404).send({ error: "Blog not found" });
         }
-        res.status(204).send();
+        res.status(200).send();
         
     } catch (error) {
         res.status(500).send({ error: "Internal server error" });
@@ -88,7 +88,7 @@ const blogPost = async (req:Request, res:Response) => {
                     // );
                     // await userExisting?.save();
 
-                    return res.status(201).json(blog);
+                    return res.status(200).json(blog);
                 }
             } catch (error) {
                 console.error("Error creating blog:", error);
@@ -115,7 +115,7 @@ const blogUpdate = async (req: Request, res: Response) => {
         }
         
         console.log("Blog updated successfully:", blog);
-        res.send(blog);
+        res.status(200).send(blog);
     } catch (error) {
         console.error("Error updating blog:", error);
         res.status(500).send({ error: "Internal server error" });

@@ -28,7 +28,7 @@ const checkAdmin = (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate('jwt', { session: false }, (err:Error, user:any, info:any) => {
 
             if (!user) {
-                return res.status(401).json({ message: 'Invalid User' });
+                return res.status(404).json({ message: 'Invalid User' });
             }
 
             if(!user.admin === true) {

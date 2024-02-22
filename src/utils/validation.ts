@@ -5,9 +5,15 @@ import {comment,blog, message,User} from "./types"
 
 const validateComments = (comment:comment)=>{
         const commentSchema = joi.object({
-            name: joi.string().required(),
-            email:joi.string().email().required(),
-            comment: joi.string().required()
+            name: joi.string().required().messages({
+                'any.required': 'Name is missing'
+            }),
+            email:joi.string().email().required().messages({
+                'any.required': 'Email is missing'
+            }),
+            comment: joi.string().required().messages({
+                'any.required': 'Comment is missing'
+            })
         })
 
         return commentSchema.validate(comment);
@@ -15,9 +21,15 @@ const validateComments = (comment:comment)=>{
 // validate messages
 const  validateMessages = (message:message)=>{
             const messageSchema = joi.object({
-                name: joi.string().required(),
-                email:joi.string().email().required(),
-                content: joi.string().required()
+                name: joi.string().required().messages({
+                    'any.required': 'Name is missing'
+                }),
+                email:joi.string().email().required().messages({
+                    'any.required': 'Email is missing'
+                }),
+                content: joi.string().required().messages({
+                    'any.required': 'Message is missing'
+                })
             })
             return messageSchema.validate(message)
 }
@@ -25,9 +37,15 @@ const  validateMessages = (message:message)=>{
 //  validate Blog
 const validateBlog= (blog:blog)=>{
     const blogSchema = joi.object({     
-        title: joi.string().required(),
-        image: joi.string().required(),
-        content: joi.string().required()
+        title: joi.string().required().messages({
+            'any.required': 'title is missing'
+        }),
+        image: joi.string().required().messages({
+            'any.required': 'Image is missing'
+        }),
+        content: joi.string().required().messages({
+            'any.required': 'Content is missing'
+        })
     })
     return blogSchema.validate(blog)
 }
@@ -35,8 +53,12 @@ const validateBlog= (blog:blog)=>{
 const validateUser = (user:User) =>{
     const userSchema = joi.object({
 
-        username:joi.string().required().min(3).max(20),
-        password:joi.string().min(6).max(30).required()
+        username:joi.string().required().min(3).max(20).messages({
+            'any.required': 'Username is missing'
+        }),
+        password:joi.string().min(6).max(30).required().messages({
+            'any.required': 'Password is missing'
+        })
         
     })
     return userSchema.validate(user)
@@ -44,8 +66,12 @@ const validateUser = (user:User) =>{
 
 const validateLogin = (user:User) =>{
     const userSchema = joi.object({
-        username:joi.string().required().min(3).max(20),
-        password:joi.string().min(6).max(30).required()
+        username:joi.string().required().min(3).max(20).messages({
+            'any.required': 'Username is missing'
+        }),
+        password:joi.string().min(6).max(30).required().messages({
+            'any.required': 'Password is missing'
+        })
     })
     return userSchema.validate(user)
 }

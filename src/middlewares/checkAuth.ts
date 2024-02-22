@@ -16,7 +16,7 @@ const checkAuth = (req: Request, res: Response, next: NextFunction) => {
             if (!user) {
                 return res.status(401).json({ message: 'Unauthorized Access' });
             }
-
+            req.user = user;
         next();
     })(req, res, next);
   

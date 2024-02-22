@@ -5,14 +5,17 @@ import { cloudinary} from '../utils/cloudinary';
 import { User } from '../utils/types';
 import { UserModel } from '../models/authModel';
 import { upload } from '../utils/multer';
-
-
+import passport from 'passport';
+import { Console } from 'console';
+import  Jwt  from 'jsonwebtoken';
 // blog show
 const blogShow = async (req:Request, res:Response) => {
     const blogs = await Blog.find();
     if (!blogs){    
         return res.status(404).send({ error: "Blog not found" });
     }
+    console.log(req.user)
+
     res.send(blogs);
 }
 
@@ -24,6 +27,8 @@ const blogGet = async (req:Request, res:Response) => {
         if (!blog) {
             return res.status(404).send({ error: "Blog not found" });
         }
+
+
         res.send(blog);
     } catch (error) {
          res.status(500).send({ error:"Internal server error" });
@@ -57,7 +62,7 @@ const blogPost = async (req:Request, res:Response) => {
     try {
         upload.single('image')(req, res, async (err) => {
             try {
-                if (err) return res.status(500).send({ error: "Error uploading" });
+                if (err) return res.status(500).send({ error: "Error uploading"+ err});
 
                 if (!req.file) return res.status(403).send({ error: "Error uploading, file not found" });
 
@@ -69,7 +74,7 @@ const blogPost = async (req:Request, res:Response) => {
 
                 const userExist = req.user;
                 const userExisting = await UserModel.findOne(userExist);
-
+   
                 if (blogDB) {
                     return res.status(409).send("Title already exists");
                 } else {
@@ -83,10 +88,10 @@ const blogPost = async (req:Request, res:Response) => {
                     await blog.save();
 
                     // Update user's blogsCreated array
-                    // userExisting?.blogsCreated?.push(
-                    //     blog.id
-                    // );
-                    // await userExisting?.save();
+                    userExisting?.blogsCreated?.push(
+                        blog.id
+                    );
+                    await userExisting?.save();
 
                     return res.status(200).json(blog);
                 }

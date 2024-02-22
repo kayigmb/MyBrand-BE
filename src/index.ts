@@ -30,7 +30,7 @@ mongoose
         }));  
 
         app.use(passport.initialize()); // don't touch
-
+        app.use(passport.session());
         app.use(cookieParser());  
         app.use(bodyParser.urlencoded({ extended: false }));
         app.use(express.urlencoded({extended: false})) 

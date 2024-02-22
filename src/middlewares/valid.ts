@@ -4,7 +4,7 @@ import { validateBlog,validateUser,validateLogin } from "../utils/validation";
 import { validateComments } from '../utils/validation'
 
 
-const vBlog = async(req:Request, res:Response,next:Function) => {
+const validBlog = async(req:Request, res:Response,next:Function) => {
     try{
         const {error} = validateBlog(req.body);
         if (error) {
@@ -18,7 +18,7 @@ const vBlog = async(req:Request, res:Response,next:Function) => {
 
 }
 
-const vUser = async(req:Request, res:Response,next:Function) => {
+const validUser = async(req:Request, res:Response,next:Function) => {
     try{
         const {error} = validateLogin(req.body);
         if (error) {
@@ -34,7 +34,7 @@ const vUser = async(req:Request, res:Response,next:Function) => {
 
 
 
-const vComments = async (req:Request, res:Response, next:Function) => {
+const validComments = async (req:Request, res:Response, next:Function) => {
     try {
         const { error } = validateComments(req.body);
         if (error) {
@@ -48,7 +48,7 @@ const vComments = async (req:Request, res:Response, next:Function) => {
 }
 
 
-const vMessage = async (req:Request,res:Response,next:Function)=>{
+const validMessage = async (req:Request,res:Response,next:Function)=>{
         try{
             const { error } = validateMessages(req.body);
 
@@ -63,4 +63,4 @@ const vMessage = async (req:Request,res:Response,next:Function)=>{
 
 }
 
-export {vBlog,vUser,vMessage,vComments}
+export {validBlog,validUser,validMessage,validComments}

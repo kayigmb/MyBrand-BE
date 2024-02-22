@@ -5,39 +5,28 @@ import { UserModel } from '../models/authModel';
 import {Types}from 'mongoose'
 import { Strategy as LocalStrategy } from "passport-local";
 import crypto from "crypto"
-import { Strategy as JWTstrategy, ExtractJwt as ExtractJWT} from 'passport-jwt';
 import session from 'express-session';
+import Jwt from 'jsonwebtoken';
 
 
-// const checkAuth = (req:Request, res:Response,next:NextFunction) => {
-//     try{
-//         const token = req.query.secret_token;
-
-//             if (!token) {
-
-//                 return res.status(404).send("Unable to find user");
-                
-//             }
-
-//         passport.authenticate('jwt', { session: false })(req, res, next);
-//     }
-//          catch (err) {
-
-//             console.log(err);
-
-//             res.status(500).send("Internal error");
-
-//         }
-// }   
-
-const checkAuth = (req:Request, res:Response,next:NextFunction) => {
-                
-            if(req.isAuthenticated()){
-                return next();
+const checkAuth = (req: Request, res: Response, next: NextFunction) => {
+    
+    passport.authenticate('jwt', { session: false }, (err:Error, user:any, info:any) => {
+        
+            if (!user) {
+                return res.status(401).json({ message: 'Unauthorized Access' });
             }
-            else{
-                res.status(401).send("No access found");
-            }
-}
+
+        next();
+    })(req, res, next);
+
+    
+
+};
+
+
 
 export {checkAuth}
+
+
+  

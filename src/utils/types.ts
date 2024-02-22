@@ -29,5 +29,13 @@ interface User{
     blogsCreated?:Types.ObjectId[]
 }
 
+interface JwtPayload {
+    user: {
+      _id: any;
+      username: string;
+      password: string;
+    };
+}
 
-export {comment,blog, message,User}
+
+export {comment,blog, message,User,JwtPayload}

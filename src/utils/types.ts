@@ -13,7 +13,7 @@ interface blog{
     author:string,
     image:string,
     content:string,
-    likes:{ user: Types.ObjectId }[];
+    likes:[]
 }
 
 interface message {

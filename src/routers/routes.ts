@@ -57,7 +57,7 @@ router.post("/queries",validMessage,messageCreate);
 //Likes
 
 //like create
-router.put("/blogs/:id/likes", like)
+router.put("/blogs/:id/likes",checkAuth, like)
 router.get("/blogs/:id/likes", likeShow)
 
 

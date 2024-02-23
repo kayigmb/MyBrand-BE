@@ -2,12 +2,12 @@ import { Blog } from '../models/blog'
 import express, { NextFunction, Request, Response} from 'express'
 import { Comment } from '../models/comment';
 import { cloudinary} from '../utils/cloudinary';
-import { User } from '../utils/types';
 import { UserModel } from '../models/authModel';
 import { upload } from '../utils/multer';
-import passport from 'passport';
-import { Console } from 'console';
-import  Jwt  from 'jsonwebtoken';
+
+
+
+
 // blog show
 const blogShow = async (req:Request, res:Response) => {
     const blogs = await Blog.find();
@@ -16,7 +16,7 @@ const blogShow = async (req:Request, res:Response) => {
     }
     console.log(req.user)
 
-    res.send(blogs);
+    res.status(200).send(blogs);
 }
 
 
@@ -62,7 +62,7 @@ const blogPost = async (req:Request, res:Response) => {
     try {
         upload.single('image')(req, res, async (err) => {
             try {
-                if (err) return res.status(500).send({ error: "Error uploading"+ err});
+                if (err) return res.status(500).send({ error: err});
 
                 if (!req.file) return res.status(403).send({ error: "Error uploading, file not found" });
 

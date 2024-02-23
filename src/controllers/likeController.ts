@@ -2,6 +2,7 @@ import express,{ Request, Response } from "express";
 import { Blog } from "../models/blog";
 import { v4 as uuidv4 } from 'uuid';
 import { Types } from 'mongoose';
+import { UserModel } from "../models/authModel";
 
 const like = async (req: Request, res: Response) => {
     try {
@@ -12,37 +13,42 @@ const like = async (req: Request, res: Response) => {
             return res.status(404).send({ error: "Blog not found" });
         }
 
-        let userId = req.cookies.userId;
+        const userId = req.user;
 
         if (!userId) {
-
-            userId = uuidv4();   
-                
-            res.cookie('userId', userId, { maxAge: 60000 * 60 * 60 * 24 *365});            
+            return res.status(404).send({ error: "User not found" });
         }
 
-        const userIdObject = Types.ObjectId.createFromTime(parseInt(userId, 16));
+        const userExisting = await UserModel.findOne(userId);
 
-        const userLikedIndex = blog.likes.findIndex(like => like.user.equals(userIdObject));
+        if (!userExisting) {
+
+            return res.status(404).send({ error: "User not found" });
+        }
+
+  
+        const blogLikes = blog.likes as Types.ObjectId[];
+
+        const userLikedIndex = blogLikes.findIndex((user) => user.equals(userExisting._id));
 
         if (userLikedIndex === -1) {
-            blog.likes.push({ user: userIdObject });
+            blogLikes.push(userExisting._id);
             await blog.save();
             res.status(200).send('Blog post liked ');
         } else {
-            blog.likes.splice(userLikedIndex, 1);
+            blogLikes.splice(userLikedIndex, 1);
             await blog.save();
             res.status(200).send('Blog post unliked');
         }
     } catch (error) {
         console.error("Internal error:", error);
-        res.status(500).send({ error: "Error with liking" });
+        res.status(500).send({ error: "internal server error" });
     }
 }
 
-
 const likeShow = async (req:Request, res:Response) => {
     try{
+        console.log(req.user)
         const blogId = req.params.id;
         const blog = await Blog.findById(blogId);
 

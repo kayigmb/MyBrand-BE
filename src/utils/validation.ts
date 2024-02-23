@@ -1,6 +1,8 @@
 import joi from "joi"
 import {comment,blog, message,User} from "./types"
 
+
+
 // validate comments
 
 const validateComments = (comment:comment)=>{
@@ -18,6 +20,9 @@ const validateComments = (comment:comment)=>{
 
         return commentSchema.validate(comment);
 }
+
+
+
 // validate messages
 const  validateMessages = (message:message)=>{
             const messageSchema = joi.object({
@@ -33,6 +38,8 @@ const  validateMessages = (message:message)=>{
             })
             return messageSchema.validate(message)
 }
+
+
 
 //  validate Blog
 const validateBlog= (blog:blog)=>{
@@ -50,6 +57,8 @@ const validateBlog= (blog:blog)=>{
     return blogSchema.validate(blog)
 }
 
+
+//validate user
 const validateUser = (user:User) =>{
     const userSchema = joi.object({
 

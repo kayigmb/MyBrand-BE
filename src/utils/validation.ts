@@ -82,7 +82,7 @@ const validateLogin = (user:User) =>{
             'any.required': 'Password is missing'
         })
     })
-    return userSchema.validate(user)
+    return userSchema.validate(user)    
 }
 
 

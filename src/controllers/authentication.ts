@@ -28,7 +28,7 @@ const signup = async (username: string, password: any, done: Function) => {
                 const hashPassword = await bcrypt.hash(password, 10);
 
 
-                    const newUser = new UserModel({
+                     const newUser = new UserModel({
                         username: username,
                         password: hashPassword 
                     });

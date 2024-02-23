@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">22.38% </span>
+                <span class="strong">34.32% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/67</span>
+                <span class='fraction'>23/67</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>1/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>2/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.03% </span>
+                <span class="strong">31.14% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/61</span>
+                <span class='fraction'>19/61</span>
             </div>
         
             
@@ -194,9 +194,7 @@
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
 <a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a>
-<a name='L133'></a><a href='#L133'>133</a>
-<a name='L134'></a><a href='#L134'>134</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L132'></a><a href='#L132'>132</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -208,27 +206,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -340,31 +336,29 @@ import { upload } from '../utils/multer';
 &nbsp;
 &nbsp;
 // blog show
-const blogShow = <span class="fstat-no" title="function not covered" >async </span>(req:Request, res:Response) =&gt; {
-    const blogs = <span class="cstat-no" title="statement not covered" >await Blog.find();</span>
-<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (!blogs){    </span>
+const blogShow = async (req:Request, res:Response) =&gt; {
+    const blogs = await Blog.find();
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!blogs){    
 <span class="cstat-no" title="statement not covered" >        return res.status(404).send({ error: "Blog not found" });</span>
     }
-<span class="cstat-no" title="statement not covered" >    console.log(req.user)</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    res.status(200).send(blogs);</span>
+    res.status(200).send(blogs);
 }
 &nbsp;
 &nbsp;
 // blog Get
-const blogGet = <span class="fstat-no" title="function not covered" >async </span>(req:Request, res:Response) =&gt; {
-<span class="cstat-no" title="statement not covered" >    try {   </span>
-        const blog = <span class="cstat-no" title="statement not covered" >await Blog.findOne({ _id: req.params.id });</span>
-<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (!blog) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(404).send({ error: "Blog not found" });</span>
+const blogGet = async (req: Request, res: Response) =&gt; {
+    try {
+        const blog = await Blog.findOne({ _id: req.params.id });
+        if (!blog) {
+            return res.status(404).json({ error: "Blog not found" });
         }
-&nbsp;
-&nbsp;
-<span class="cstat-no" title="statement not covered" >        res.send(blog);</span>
+        res.status(200).json(blog);
     } catch (error) {
-<span class="cstat-no" title="statement not covered" >         res.status(500).send({ error:"Internal server error" });</span>
+<span class="cstat-no" title="statement not covered" >        console.error(error); </span>
+<span class="cstat-no" title="statement not covered" >        res.status(500).json({ error: "Internal server error" });</span>
     }
-}
+};
 &nbsp;
 &nbsp;
 // Blog delete
@@ -469,7 +463,7 @@ export {blogGet,blogPost,blogUpdate,blogDelete,blogShow}
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-23T11:02:43.276Z
+                at 2024-02-23T14:42:53.905Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

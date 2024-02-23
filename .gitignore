@@ -7,3 +7,4 @@ hello.txt
 dist/
 package.json
 package-lock.json
+coverage/

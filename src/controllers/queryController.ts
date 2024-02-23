@@ -4,7 +4,7 @@ import { Message } from '../models/query'
 // message show 
 const messageShow = async (req:Request, res:Response) => {
     const messages = await Message.find()
-    res.send(messages)
+    res.status(200).send(messages)
 }
 
 

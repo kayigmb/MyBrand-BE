@@ -17,10 +17,10 @@ afterAll(async () => {
     await mongoose.connection.close();
 });
 
-describe('Testing API', () => {
-    it('/api/* for 404', async () => {
+describe('Test apo', () => {
+    it('api fro 404', async () => {
         const response = await supertest(app).get('/api/*');
-        expect(response.statusCode).toBe(404);
+        expect(response.status).toBe(404);
     });
 });
 
@@ -28,14 +28,14 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY1ZDc2
 
 describe('User', () => {
 
-  //it creates a new user and dont touch now 
-  // it('should register user', async () => {
-  //   const res = await supertest(app).post('/api/signup').send({
-  //    username:"froman44",
-  //    password:"fromand123"
-  //   });
-  //   expect(res.statusCode).toBe(200)
-  // }); 
+  // it creates a new user and dont touch now 
+  it('should register user', async () => {
+    const res = await supertest(app).post('/api/signup').send({
+     username:"user4444",
+     password:"user123234"
+    });
+    expect(res.statusCode).toBe(200)
+  }); 
 
   it('it should not acceccept same user', async () => {
     const res = await supertest(app).post('/api/signup').send({
@@ -45,14 +45,18 @@ describe('User', () => {
      expect(res.statusCode).toBe(401)
   })
   it('it should not accept invalid usename', async () => {
-    const res = await supertest(app).post('/api/signup').send({
+    const res = await supertest(app)
+    .post('/api/signup')
+    .send({
       username:'',
       password:"fromand123"
      });
      expect(res.body.message).toContain('Usename is missing')
   })
   it('should signin the  user', async () => {
-    const res = await supertest(app).post('/api/signin').send({
+    const res = await supertest(app)
+    .post('/api/signin')
+    .send({
      username:"froman",
      password:"fromand123"
     });
@@ -85,7 +89,7 @@ describe('Blog ', () => {
   });
 
   it('should view one blog if blog does not exist', async () => {
-    const id =  '65d4be8212291968722aca2a'; 
+    const id =  '65d5fa7938ef3716c37fa118'; 
     const res = await supertest(app).get(`/api/blogs/${id}`);
     expect(res.statusCode).toBe(200); 
 });
@@ -93,7 +97,7 @@ describe('Blog ', () => {
 
 
 it('should fail to view one blog if blog does not exist', async () => {
-  const id = '65d494c2b6e7f0b6cb1a3fb4';
+  const id = '65d5fa7938ef3716c37fa118';
   const res = await supertest(app).get(`/api/blogs/${id}`);
   expect(res.statusCode).toBe(404); 
 });
@@ -125,7 +129,7 @@ describe('messages', () => {
 
 
 describe('likes', () => {
-          const id =  '65d4be8212291968722aca2a'; 
+          const id =  '65d5fa7938ef3716c37fa118'; 
           it('should return the number of likes of a blog',async()=>{
             
             const res = await supertest(app)
@@ -151,7 +155,7 @@ describe('likes', () => {
 
 
 describe('Comments',()=>{
-  const id =  '65d4be8212291968722aca2a'; 
+  const id =  '65d5fa7938ef3716c37fa118'; 
     it('should return a list of comments', async()=>{
    
       const res =  await supertest(app)

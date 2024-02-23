@@ -33,7 +33,7 @@ router.post("/blogs",checkAuth,blogPost);
 router.patch("/blogs/:id",checkAuth,blogUpdate);
 
 // delete blog
-router.delete("/blogs/:id",checkAuth, blogDelete);
+router.delete("/blogs/:id",checkAuth, checkAdmin, blogDelete);
 
 
 //Comment router

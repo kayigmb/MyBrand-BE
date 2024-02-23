@@ -46,7 +46,7 @@ const blogDelete = async (req:Request, res:Response) => {
         if (!blogDelete) {
             return res.status(404).send({ error: "Blog not found" });
         }
-        res.status(200).send();
+        res.status(200).json("BLOG SUCCESSFULLY DELETED ");
         
     } catch (error) {
         res.status(500).send({ error: "Internal server error" });

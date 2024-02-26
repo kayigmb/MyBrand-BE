@@ -4,7 +4,7 @@ import { Message } from '../models/query'
 // message show 
 const messageShow = async (req:Request, res:Response) => {
     const messages = await Message.find()
-    res.status(200).send(messages)
+    res.status(200).json(messages)
 }
 
 
@@ -17,10 +17,10 @@ const messageCreate = async (req:Request, res:Response) => {
                     content:req.body.content
             })
             await message.save();
-            res.status(201).send(message)
+            res.status(201).json(message)
 
     } catch(err){
-                res.status(500).send({error: 'Internal Server Error'})
+                res.status(500).json({error: 'Internal Server Error'})
     }
 }
 

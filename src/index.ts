@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser'
 import passport from "passport";
 import './utils/passport'
 import  {app} from "./app";
+import { swaggerDoc } from "./utils/swagger";
 
 
 
@@ -22,6 +23,9 @@ mongoose
     .then(() => {
         
         console.log("Connected to MongoDB.");
+        const port1:number = parseInt(port)
+        swaggerDoc(app,port1)
+
         app.listen(port, () => {
             console.log(`Server is running on port ${port}`);
         });

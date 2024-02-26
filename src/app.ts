@@ -10,23 +10,45 @@ import passport from "passport";
 import './utils/passport' 
 
 
-    const app = express()
-    app.use(express.json());
+const app = express()
+app.use(express.json());
 
-    app.use(session({
+app.use(session({
         secret: 'jwt', 
         resave: false,
         saveUninitialized: true
-    }));  
+}));  
 
-    app.use(passport.initialize()); // don't touch
-    app.use(passport.session());
-    app.use(cookieParser());  
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(express.urlencoded({extended: false})) 
+const options = {
+    definition: {
+        openApi: "3.0.0",
+        info: {
+            title: "Your API Title",
+            version: "1.0.0",
+            description: "Your API Description",
+        },
+        servers: [{
+            url: "http://localhost:3000"
+        }]
+    },
+    apis: ["./routes/*.ts"]
+};
 
-    //Routers 
-    app.use("/api", router);
+// const spacs =  swaggerJSDocs(options);
+
+// app.use('/swagger',
+//         swaggerUi.serve,
+//         swaggerUi.setup(spacs)    
+// );
+
+app.use(passport.initialize()); // don't touch
+app.use(passport.session());
+app.use(cookieParser());  
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false})) 
+
+//Routers 
+app.use("/api", router);
         
 
 

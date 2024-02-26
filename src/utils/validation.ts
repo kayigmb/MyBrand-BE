@@ -11,7 +11,8 @@ const validateComments = (comment:comment)=>{
                 'any.required': 'Name is missing'
             }),
             email:joi.string().email().required().messages({
-                'any.required': 'Email is missing'
+                'any.required': 'Email is missing',
+                'string.email': 'Email should be in good format'
             }),
             comment: joi.string().required().messages({
                 'any.required': 'Comment is missing'
@@ -30,10 +31,12 @@ const  validateMessages = (message:message)=>{
                     'any.required': 'Name is missing'
                 }),
                 email:joi.string().email().required().messages({
-                    'any.required': 'Email is missing'
+                    'any.required': 'Email is missing',
+                    'string.email': 'Email should be in good format'
                 }),
                 content: joi.string().required().messages({
-                    'any.required': 'Message is missing'
+                    'any.required': 'Message is missing',
+                    
                 })
             })
             return messageSchema.validate(message)
@@ -59,31 +62,38 @@ const validateBlog= (blog:blog)=>{
 
 
 //validate user
-const validateUser = (user:User) =>{
-    const userSchema = joi.object({
+// const validateUser = (user: User) => {
+//     const userSchema = joi.object({
+//         username: joi.string().required().min(3).max(15).messages({
+//             'any.required': 'Username is missing',
+//             'string.min': 'Username must be at least 3 characters',
+//             'string.max': 'Username must not be more than 15 characters'
+//         }),
+//         password: joi.string().required().min(6).max(15).messages({
+//             'any.required': 'Password is missing',
+//             'string.min': 'Password must be at least 6 characters',
+//             'string.max': 'Password must not be more than 15 characters'
+//         })
+//     });
 
-        username:joi.string().required().min(3).max(20).messages({
-            'any.required': 'Username is missing'
-        }),
-        password:joi.string().min(6).max(30).required().messages({
-            'any.required': 'Password is missing'
-        })
-        
-    })
-    return userSchema.validate(user)
-}
+//     return userSchema.validate(user);
+// }
 
 const validateLogin = (user:User) =>{
     const userSchema = joi.object({
-        username:joi.string().required().min(3).max(20).messages({
-            'any.required': 'Username is missing'
+        username: joi.string().required().min(3).max(15).messages({
+            'any.required': 'Username is missing',
+            'string.min': 'Username must be at least 3 characters',
+            'string.max': 'Username must not be more than 15 characters'
         }),
-        password:joi.string().min(6).max(30).required().messages({
-            'any.required': 'Password is missing'
+        password: joi.string().required().min(6).max(15).messages({
+            'any.required': 'Password is missing',
+            'string.min': 'Password must be at least 6 characters',
+            'string.max': 'Password must not more than 15 characters'
         })
-    })
+    });
     return userSchema.validate(user)    
 }
 
 
-export {validateComments,validateMessages,validateBlog,validateUser,validateLogin}
+export {validateComments,validateMessages,validateBlog,validateLogin}

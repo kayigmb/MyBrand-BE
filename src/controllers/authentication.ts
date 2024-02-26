@@ -7,7 +7,6 @@ import { UserModel } from "../models/authModel";
 import { Strategy as JWTstrategy, ExtractJwt as ExtractJWT} from 'passport-jwt';
 import bcrypt from 'bcrypt'
 import '../utils/passport'
-import { issueJwt } from "../utils/jwt";
 import Jwt from 'jsonwebtoken';
 
 const fields = {
@@ -69,11 +68,11 @@ const registerAdmin = async(req:Request,res:Response)=>{
         })
 
         await newUser.save();
-        res.status(201).send(newUser)
+        res.status(201).json(newUser)
     }   
     catch(err){
         console.error(err);
-        res.status(500).send("Error internal server")
+        res.status(500).json("Error internal server")
 
     }
 }

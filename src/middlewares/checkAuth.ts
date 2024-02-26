@@ -32,7 +32,7 @@ const checkAdmin = (req: Request, res: Response, next: NextFunction) => {
             }
 
             if(!user.admin === true) {
-                return res.status(401).send({ message: 'Only Admin access' });
+                return res.status(401).json({ message: 'Only Admin access' });
             }
 
         next();

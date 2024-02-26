@@ -10,20 +10,20 @@ const like = async (req: Request, res: Response) => {
         const blog = await Blog.findById(blogId);
 
         if (!blog) {
-            return res.status(404).send({ error: "Blog not found" });
+            return res.status(404).json({ error: "Blog not found" });
         }
 
         const userId = req.user;
 
         if (!userId) {
-            return res.status(404).send({ error: "User not found" });
+            return res.status(404).json({ error: "User not found" });
         }
 
         const userExisting = await UserModel.findOne(userId);
 
         if (!userExisting) {
 
-            return res.status(404).send({ error: "User not found" });
+            return res.status(401).json({ error: "User not found" });
         }
 
   
@@ -42,7 +42,7 @@ const like = async (req: Request, res: Response) => {
         }
     } catch (error) {
         console.error("Internal error:", error);
-        res.status(500).send({ error: "internal server error" });
+        res.status(500).json({ error: "internal server error" });
     }
 }
 
@@ -53,7 +53,7 @@ const likeShow = async (req:Request, res:Response) => {
         const blog = await Blog.findById(blogId);
 
         if (!blog) {
-            return res.status(404).send({ error: "Blog not found" });
+            return res.status(404).json({ error: "Blog not found" });
         }
         
         const likes = blog.likes.length;
@@ -61,7 +61,7 @@ const likeShow = async (req:Request, res:Response) => {
         
     }catch (error) {
         console.log(error);
-        res.status(404).send('error finding likes count');
+        res.status(404).json({error: 'error finding likes count'});
 
     }
 }

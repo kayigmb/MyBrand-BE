@@ -12,10 +12,10 @@ import { upload } from '../utils/multer';
 const blogShow = async (req:Request, res:Response) => {
     const blogs = await Blog.find();
     if (!blogs){    
-        return res.status(404).send({ error: "Blog not found" });
+        return res.status(404).json({ error: "Blog not found" });
     }
 
-    res.status(200).send(blogs);
+    res.status(200).json(blogs);
 }
 
 
@@ -44,12 +44,12 @@ const blogDelete = async (req:Request, res:Response) => {
         await Comment.deleteMany({blog:blogId});
     
         if (!blogDelete) {
-            return res.status(404).send({ error: "Blog not found" });
+            return res.status(404).json({ error: "Blog not found" });
         }
         res.status(200).json("BLOG SUCCESSFULLY DELETED ");
         
     } catch (error) {
-        res.status(500).send({ error: "Internal server error" });
+        res.status(500).json({ error: "Internal server error" });
     }
 }
 
@@ -74,7 +74,7 @@ const blogPost = async (req:Request, res:Response) => {
                 const userExisting = await UserModel.findOne(userExist);
    
                 if (blogDB) {
-                    return res.status(409).send("Title already exists");
+                    return res.status(409).json("Title already exists");
                 } else {
                     const blog = new Blog({
                         title,
@@ -95,12 +95,12 @@ const blogPost = async (req:Request, res:Response) => {
                 }
             } catch (error) {
                 console.error("Error creating blog:", error);
-                return res.status(500).send({ error: "Internal server error" });
+                return res.status(500).json({ error: "Internal server error" });
             }
         });
     } catch (error) {
         console.log(error);
-        return res.status(500).send({ error: "Internal server error" });
+        return res.status(500).json({ error: "Internal server error" });
     }
 };
 
@@ -114,14 +114,14 @@ const blogUpdate = async (req: Request, res: Response) => {
         
         if (!blog) {
             console.log("Blog not found");
-            return res.status(404).send({ error: "Blog not found" });
+            return res.status(404).json({ error: "Blog not found" });
         }
         
         console.log("Blog updated successfully:", blog);
-        res.status(200).send(blog);
+        res.status(200).json(blog);
     } catch (error) {
         console.error("Error updating blog:", error);
-        res.status(500).send({ error: "Internal server error" });
+        res.status(500).json({ error: "Internal server error" });
     }
 }
 

@@ -7,7 +7,7 @@ import passport from 'passport';
 import '../controllers/authentication'
 import {validBlog,validUser,validMessage,validComments} from '../middlewares/valid'
 import { registerAdmin} from '../controllers/authentication';
-import '../utils/jwt'
+// import '../utils/jwt'
 import Jwt from 'jsonwebtoken'
 import { checkAuth,checkAdmin } from '../middlewares/checkAuth';
 import '../utils/passport'
@@ -33,7 +33,7 @@ router.post("/blogs",checkAuth,blogPost);
 router.patch("/blogs/:id",checkAuth,blogUpdate);
 
 // delete blog
-router.delete("/blogs/:id",checkAuth, checkAdmin, blogDelete);
+router.delete("/blogs/:id",checkAuth, blogDelete);
 
 
 //Comment router

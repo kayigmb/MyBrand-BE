@@ -1,4 +1,4 @@
-[![Coverage](https://img.shields.io/badge/Coverage-83%25-brightgreen.svg)](https://my-app.com/coverage/report.html)
+
 Backend API using Node Js.
 
 How it Works:

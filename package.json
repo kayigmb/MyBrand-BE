@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "nodemon dist/index.js",
-    "build":"tsc -p"
+   "build": "mkdir dist && npm install typescript && tsc -w && npm init -y"
   },
   "repository": {
     "type": "git",

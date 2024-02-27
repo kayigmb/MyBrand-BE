@@ -12,7 +12,8 @@ dotenv.config();
 
   
 beforeAll(async () => {
-    await mongoose.connect("mongodb+srv://kayigm1:kayigm132@post.kwblqh9.mongodb.net/?retryWrites=true&w=majority");
+  await mongoose.connect("mongodb+srv://kayigm1:kayigm132@post.kwblqh9.mongodb.net/yourDatabaseName?retryWrites=true&w=majority");
+
 }, 50000);
 
 afterAll(async () => {

@@ -22,6 +22,7 @@ app.use(session({
 
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(documentation));
+
 app.use(passport.initialize()); // don't touch
 app.use(passport.session());
 app.use(cookieParser());  

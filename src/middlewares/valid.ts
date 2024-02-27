@@ -3,6 +3,12 @@ import { validateMessages } from "../utils/validation";
 import { validateBlog,validateLogin } from "../utils/validation";
 import { validateComments } from '../utils/validation'
 
+// const bodyParser = require('body-parser');
+
+// const app = express();
+
+
+// app.use(bodyParser.urlencoded({ extended: false }));
 
 const validBlog = async(req:Request, res:Response,next:Function) => {
     try{

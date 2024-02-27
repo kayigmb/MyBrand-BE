@@ -1,5 +1,6 @@
 import { Schema, model, Types} from  "mongoose"
 import {blog} from '../utils/types';
+import { required } from "joi";
 
 const blogSchema = new Schema({
     title: {

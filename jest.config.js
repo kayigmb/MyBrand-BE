@@ -7,4 +7,9 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: 'coverage',
   collectCoverageFrom: ['src/**'], 
+  coverageReporters: [
+    "json-summary", 
+    "text",
+    "lcov"
+  ]
 };

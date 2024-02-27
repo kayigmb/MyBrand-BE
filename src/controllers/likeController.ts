@@ -57,7 +57,7 @@ const likeShow = async (req:Request, res:Response) => {
         
     }catch (error) {
         console.log(error);
-        res.status(404).json({error: 'error finding likes count'});
+        res.status(500).json({error: 'internal error'});
 
     }
 }

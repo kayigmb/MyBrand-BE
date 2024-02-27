@@ -16,7 +16,7 @@ const verify =  async (token:any, done:any) => {
     } catch (error) {
       done(error);
     }
-  } 
+} 
 
 
 passport.use(

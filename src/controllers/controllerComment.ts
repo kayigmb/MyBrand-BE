@@ -9,6 +9,7 @@ const commentShow = async (req: Request, res: Response) => {
         const blogId = req.params.id;
 
         const blog = await Blog.findOne({ _id: blogId });
+        
         if (!blog) {
             return res.status(404).json({ error: "Comment not found" });
         }

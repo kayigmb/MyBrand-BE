@@ -15,10 +15,6 @@ const like = async (req: Request, res: Response) => {
 
         const userId = req.user;
 
-        if (!userId) {
-            return res.status(404).json({ error: "User not found" });
-        }
-
         const userExisting = await UserModel.findOne(userId);
 
         if (!userExisting) {

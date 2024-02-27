@@ -1,0 +1,139 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "BackEnd API",
+      "description": "Swagger Documentation"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000",
+        "description": "Server"
+      }
+    ],
+    "components": {
+      "securitySchemes": {
+        "BearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "schemas": {
+        "BlogPost": {
+          "type": "object",
+          "properties": {
+            "token":{
+                "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "author": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string",
+              "format": "binary"
+            },
+            "content": {
+              "type": "string"
+            }
+          },
+          "required": ["title", "content"]
+        },
+        "Comment":{
+            "type": "string",
+            "properties":{
+                "name":{
+                    "type":"string"
+                },
+                "email":{
+                    "type":"string"
+                },
+                "comment":{
+                    "type":"string"
+                }
+            }
+        }
+      }
+    },
+    "paths": {
+      "/api/blogs": {
+        "get": {
+          "tags": ["blog"],
+          "summary": "View all blogs",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "status": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/BlogPost"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "data": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": ["blog post"],
+          "summary": "Posts a new blog",
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlogPost"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Blog posted successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BlogPost"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized to post"
+            },
+            "403": {
+              "description": "File not found"
+            },
+            "409": {
+              "description": "Title already exists"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      }
+    }
+  }
+  

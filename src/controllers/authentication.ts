@@ -50,32 +50,32 @@ passport.use(
 );
 
 
-const registerAdmin = async(req:Request,res:Response)=>{
-    try{
+// const registerAdmin = async(req:Request,res:Response)=>{
+//     try{
 
-        const {username, password} = req.body
+//         const {username, password} = req.body
 
-        const userExist =  await UserModel.findOne({username: username});
+//         const userExist =  await UserModel.findOne({username: username});
 
-        if(userExist) return res.status(409).json('user already exists')
+//         if(userExist) return res.status(409).json('user already exists')
 
-        const hashPassword = await bcrypt.hash(password, 10);
+//         const hashPassword = await bcrypt.hash(password, 10);
 
-        const newUser = new UserModel({
-            username: username,
-            password: hashPassword,
-            admin: true
-        })
+//         const newUser = new UserModel({
+//             username: username,
+//             password: hashPassword,
+//             admin: true
+//         })
 
-        await newUser.save();
-        res.status(201).json(newUser)
-    }   
-    catch(err){
-        console.error(err);
-        res.status(500).json("Error internal server")
+//         await newUser.save();
+//         res.status(201).json(newUser)
+//     }   
+//     catch(err){
+//         console.error(err);
+//         res.status(500).json("Error internal server")
 
-    }
-}
+//     }
+// }
 
 
 const loginUser = async (username:string, password:string,done:Function)=>{
@@ -111,4 +111,4 @@ passport.use(
         new LocalStrategy (fields, loginUser)
 )
 
-export {registerAdmin}
+// export {registerAdmin}

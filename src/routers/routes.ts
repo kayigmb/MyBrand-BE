@@ -6,7 +6,7 @@ import {like,likeShow} from '../controllers/likeController'
 import passport from 'passport';
 import '../controllers/authentication'
 import {validBlog,validUser,validMessage,validComments} from '../middlewares/valid'
-import { registerAdmin} from '../controllers/authentication';
+// import { registerAdmin} from '../controllers/authentication';
 // import '../utils/jwt'
 import Jwt from 'jsonwebtoken'
 import { checkAuth,checkAdmin } from '../middlewares/checkAuth';

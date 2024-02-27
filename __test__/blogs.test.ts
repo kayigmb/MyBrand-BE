@@ -9,7 +9,8 @@ import { title } from 'process';
 dotenv.config();
 
 const ENV_db_URL = process.env.DATABASE_URL || '';
-console.log(ENV_db_URL)
+
+
 beforeAll(async () => {
     await mongoose.connect(ENV_db_URL);
 }, 50000);
@@ -32,13 +33,13 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY1ZDc2
 describe('User', () => {
 
   // it creates a new user and dont touch now 
-  // it('should register user', async () => {
-  //   const res = await supertest(app).post('/api/signup').send({
-  //    username:"user4404",
-  //    password:"user123234"
-  //   });
-  //   expect(res.statusCode).toBe(200)
-  // }); 
+  it('should register user', async () => {
+    const res = await supertest(app).post('/api/signup').send({
+     username:"user44578",
+     password:"user123234"
+    });
+    expect(res.statusCode).toBe(401)
+  }); 
 
   it('it should not accept same user', async () => {
     const res = await supertest(app).post('/api/signup').send({
@@ -438,7 +439,6 @@ describe('likes', () => {
 
       })
 
-
       it('should put a new like', async()=>{
         const res = await supertest(app)
           .put(`/api/blogs/${id}/likes`)
@@ -467,15 +467,6 @@ describe('likes', () => {
           .set('Authorization',`Bearer ${token}`)
          expect(res.statusCode).toBe(404)
       })
-
-      // it('should say unauthorise access to like ', async () => {
-      //   const tokenQuerry = 'fasdfadf6562545vcvasaadf42342'
-      //   const res = await supertest(app)
-      //   .get('/api/blogs/${id}/likes')
-      //   .set('Authorization',`bearer ${tokenQuerry}`)
-  
-      //   expect(res.status).toBe(401)
-      // })
 
       it('should bring invalid blog on like show', async()=>{
         const id = '65d5975dd75cf7595f550381'
@@ -508,6 +499,25 @@ describe('Comments',()=>{
         expect(res.statusCode).toBe(201)
     })
 
+    it('should return invalid blog', async()=>{
+      const idComment = '65d5975dd75cf7595f550381';
+
+      const res =  await supertest(app)
+        .post(`/api/blogs/${id}/comments`)
+
+      expect(res.statusCode).toBe(404)
+  })
+
+  // it('should return invalid when showing Comments', async()=>{
+  //   const idComment = true;
+
+  //   const res =  await supertest(app)
+  //     .get(`/api/blogs/${id}/comments`)
+
+  //     expect(res.statusCode).toBe(500);
+  // })
+
+  
     it('shoudld create a new comment', async()=>{
         const res = await supertest(app)
           .post(`/api/blogs/${id}/comments`)

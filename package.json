@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-    "start": "nodemon dist/index.js",
-   "build": "mkdir dist && npm install typescript && tsc -w && npm init -y"
+    "start": "nodemon dist/index.js"
   },
   "repository": {
     "type": "git",

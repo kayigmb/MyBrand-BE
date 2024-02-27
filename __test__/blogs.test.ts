@@ -8,9 +8,9 @@ import { title } from 'process';
 
 dotenv.config();
 
-const ENV_db_URL = process.env.DATABASE_URL || '';
+const ENV_db_URL ="mongodb+srv://kayigm1:kayigm132@post.kwblqh9.mongodb.net/?retryWrites=true&w=majority ";
 
-
+  
 beforeAll(async () => {
     await mongoose.connect(ENV_db_URL);
 }, 50000);

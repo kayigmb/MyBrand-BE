@@ -20,7 +20,6 @@ jobs:
           root: ~/project
           paths:
             - .
-
   deploy: 
     executor: heroku/default
     steps:

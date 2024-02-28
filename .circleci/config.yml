@@ -6,6 +6,9 @@ orbs:
 jobs:
   build_and_test:
     executor: node/default
+     - node/test:
+          version: '16.10'
+          pkg-manager: npm
     steps:
       - checkout
       - node/install-packages:

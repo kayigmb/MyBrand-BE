@@ -2,15 +2,12 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.2
   heroku: circleci/heroku@1.2.6
-  codecov: codecov/codecov@1.0.2
 
 jobs:
   build_and_test:
     executor: node/default
     steps:
-      - codecov/upload:
-          file:
-            - checkout
+      - checkout
       - node/install-packages:
           pkg-manager: yarn
       - run:
@@ -41,4 +38,4 @@ workflows:
             - build_and_test 
           filters:
             branches:
-              only: main
+              only: main 

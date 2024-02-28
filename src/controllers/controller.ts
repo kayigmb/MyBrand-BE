@@ -61,7 +61,6 @@ const blogPost = async (req:Request, res:Response) => {
         const {error,value} = validateBlog(req.body);
 
         if (error) {
-
             return res.status(404).json({ error: error.details[0].message });
 
         } 
@@ -69,10 +68,11 @@ const blogPost = async (req:Request, res:Response) => {
         const { title,content } = value;
 
         const blogDB = await Blog.findOne({ title });
+       
 
         const userExist = req.user;
         const userExisting = await UserModel.findOne(userExist);
-
+        
         if (!req.file) return res.status(403).send({ error: "Error uploading, file not found" });
         const resultFile = await cloudinary.uploader.upload(req.file.path);
 

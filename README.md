@@ -20,5 +20,5 @@ Tools:
 - Jest
 
 links:
-- [Deployed Link of the project ](https://mybrand-be-4hmq.onrender.com/docs)
+- [Deployed Link of the project ](https://mybrand-be-4hmq.onrender.com/api/docs)
 

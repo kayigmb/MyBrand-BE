@@ -12,6 +12,7 @@ import documentation from './utils/swagger.json'
 import swaggerUi from  "swagger-ui-express";
 
 const app = express()
+
 app.use(express.json());
 
 app.use(session({

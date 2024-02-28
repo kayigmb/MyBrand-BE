@@ -10,11 +10,14 @@
       {
         "url": "http://localhost:3000",
         "description": "Server"
+      },
+      {
+        "url":"https://mybrand-be-4hmq.onrender.com/",
+        "description":"devlopment"
       }
     ],
 
     "components": {
-
       "securitySchemes": {
         "BearerAuth": {
           "type": "http",

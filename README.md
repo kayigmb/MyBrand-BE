@@ -1,4 +1,6 @@
 
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/kayigmb/MyBrand-BE/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/kayigmb/MyBrand-BE/tree/main)
+
 Backend API using Node Js.
 
 How it Works:

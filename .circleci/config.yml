@@ -2,8 +2,7 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.2
   heroku: circleci/heroku@1.2.6
-  codecov: codecov/codecov@4.0.1
-  
+
 jobs:
   build_and_test:
     executor: node/default
@@ -31,10 +30,6 @@ jobs:
           force: true 
 
 workflows:
-  upload-to-codecov:
-    jobs:
-      - checkout 
-      - codecov/upload
   test_my_app:
     jobs:
       - build_and_test

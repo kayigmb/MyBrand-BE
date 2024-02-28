@@ -14,4 +14,12 @@ Frameworks used:
 - Mongo DB
 - Express Js
 - Passport Js with Jwt
+
+Tools:
 - Cloudinary
+- circleci
+- Jest
+
+links:
+- [Deployed Link of the project ](https://mybrand-be-4hmq.onrender.com/docs)
+

@@ -4,7 +4,7 @@ import { Comment } from '../models/comment';
 import { cloudinary} from '../utils/cloudinary';
 import { UserModel } from '../models/authModel';
 import { upload } from '../utils/multer';
-
+import { validateBlog } from '../utils/validation';
 
 
 
@@ -54,55 +54,60 @@ const blogDelete = async (req:Request, res:Response) => {
 }
 
 
-
 // Post a new blog
+
 const blogPost = async (req:Request, res:Response) => {
     try {
-        upload.single('image')(req, res, async (err) => {
-            try {
-                if (err) return res.status(500).send({ error: err});
+        const {error,value} = validateBlog(req.body);
 
-                if (!req.file) return res.status(403).send({ error: "Error uploading, file not found" });
+        if (error) {
 
-                const resultFile = await cloudinary.uploader.upload(req.file.path);
+            return res.status(404).json({ error: error.details[0].message });
 
-                const { title, content } = req.body;
+        } 
 
-                const blogDB = await Blog.findOne({ title });
+        const { title,content } = value;
 
-                const userExist = req.user;
-                const userExisting = await UserModel.findOne(userExist);
-   
-                if (blogDB) {
-                    return res.status(409).json("Title already exists");
-                } else {
-                    const blog = new Blog({
-                        title,
-                        author: userExisting?.username,
-                        image: resultFile.url,
-                        content,
-                    });
+        const blogDB = await Blog.findOne({ title });
 
-                    await blog.save();
+        const userExist = req.user;
+        const userExisting = await UserModel.findOne(userExist);
 
-                    // Update user's blogsCreated array
-                    userExisting?.blogsCreated?.push(
-                        blog.id
-                    );
-                    await userExisting?.save();
+        if (!req.file) return res.status(403).send({ error: "Error uploading, file not found" });
+        const resultFile = await cloudinary.uploader.upload(req.file.path);
 
-                    return res.status(200).json(blog);
-                }
-            } catch (error) {
-                console.error("Error creating blog:", error);
-                return res.status(500).json({ error: "Internal server error" });
-            }
-        });
-    } catch (error) {
-        console.log(error);
+        if (blogDB) {
+            return res.status(409).json("Title already exists");
+        }
+         else 
+        {
+            const blog = new Blog({
+                title,
+                author: userExisting?.username,
+                image: resultFile.url,
+                content,
+            });
+
+            await blog.save();
+
+            // Update user's blogsCreated array
+            userExisting?.blogsCreated?.push(
+                blog.id
+            );
+            await userExisting?.save();
+
+            return res.status(200).json(blog);
+        }
+    } 
+    catch (error) {
+        console.error("Error creating blog:", error);
         return res.status(500).json({ error: "Internal server error" });
     }
 };
+
+
+
+
 
 
 // Blog Update

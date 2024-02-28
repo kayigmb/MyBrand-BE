@@ -11,7 +11,7 @@ import {validBlog,validUser,validMessage,validComments} from '../middlewares/val
 import Jwt from 'jsonwebtoken'
 import { checkAuth,checkAdmin } from '../middlewares/checkAuth';
 import '../utils/passport'
-
+import { upload } from '../utils/multer';
 
 const router = express.Router();
 
@@ -27,7 +27,7 @@ router.get("/blogs/:id", blogGet);
 // Post a new blog
 
 //validBLog
-router.post("/blogs",checkAuth,blogPost);
+router.post("/blogs",checkAuth,upload.single('image'),blogPost);
 
 // Update blog
 router.patch("/blogs/:id",checkAuth,blogUpdate);

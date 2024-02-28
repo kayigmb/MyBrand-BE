@@ -2,19 +2,19 @@
     "openapi": "3.0.0",
 
     "info": {
-      "title": "BackEnd API",
-      "description": "Swagger Documentation"
+        "title": "BackEnd API",
+        "description": "Swagger Documentation"
     },
 
     "servers": [
-      {
-        "url": "http://localhost:3000",
-        "description": "Server"
-      },
-      {
-        "url":"https://mybrand-be-4hmq.onrender.com/",
-        "description":"devlopment"
-      }
+        {
+            "url": "http://localhost:3000",
+            "description": "Server"
+        },
+        {
+            "url":"https://mybrand-be-4hmq.onrender.com/",
+            "description":"devlopment"
+        }
     ],
 
     "components": {

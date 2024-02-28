@@ -18,7 +18,7 @@ const port = process.env.PORT;
 const databaseUrl = process.env.DATABASE_URL;
 
 mongoose
-    .connect(databaseUrl)
+    .connect(databaseUrl as string)
     .then(() => {
         
         console.log("Connected to MongoDB.");

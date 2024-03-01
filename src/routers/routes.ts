@@ -74,9 +74,13 @@ router.post('/signup',
   validUser,
     passport.authenticate('signup', { session: false }),
     async (req: Request, res: Response, next: NextFunction) => {
-        res.json({
-            user: req.user
-        });
+            res.json({
+              "message":"Successfully signed up",
+              "user":{
+                user: req.user
+              }
+                                
+            });
     }
 );
 
@@ -102,10 +106,12 @@ router.post("/signin",validUser,(req: Request, res: Response, next: NextFunction
         const token = Jwt.sign({ user: body }, 'token');
           
         res.status(200).json({
-            username: user?.username,
-            admin: user?.admin,
-            id:user?.id,
-            token: token
+            "message":"Successfully Login",
+            "user":{
+              username: user?.username,
+              admin: user?.admin,
+              token: token
+          }
         })
         
   })(req, res, next);

@@ -9,7 +9,7 @@ import {validBlog,validUser,validMessage,validComments} from '../middlewares/val
 // import { registerAdmin} from '../controllers/authentication';
 // import '../utils/jwt'
 import Jwt from 'jsonwebtoken'
-import { checkAuth,checkAdmin } from '../middlewares/checkAuth';
+import { checkAuth,checkAdmin,checkBlogAuth } from '../middlewares/checkAuth';
 import '../utils/passport'
 import { upload } from '../utils/multer';
 
@@ -30,10 +30,10 @@ router.get("/blogs/:id", blogGet);
 router.post("/blogs",checkAuth,upload.single('image'),blogPost);
 
 // Update blog
-router.patch("/blogs/:id",checkAuth,blogUpdate);
+router.patch("/blogs/:id",checkAuth,checkBlogAuth,blogUpdate);
 
 // delete blog
-router.delete("/blogs/:id",checkAuth, blogDelete);
+router.delete("/blogs/:id",checkAuth,checkBlogAuth, blogDelete);
 
 
 //Comment router
@@ -101,7 +101,7 @@ router.post("/signin",validUser,(req: Request, res: Response, next: NextFunction
         }
         
 
-        const body = { _id: user._id, username: user.username, admin:user.admin };
+        const body = { _id: user._id, username: user.username, admin:user.admin, blogs:user?.blogsCreated };
 
         const token = Jwt.sign({ user: body }, 'token');
           
@@ -110,7 +110,8 @@ router.post("/signin",validUser,(req: Request, res: Response, next: NextFunction
             "user":{
               username: user?.username,
               admin: user?.admin,
-              token: token
+              token: token,
+              blogs:user?.blogsCreated
           }
         })
         

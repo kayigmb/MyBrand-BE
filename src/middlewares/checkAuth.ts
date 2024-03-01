@@ -41,9 +41,25 @@ const checkAdmin = (req: Request, res: Response, next: NextFunction) => {
 
 };
 
+const checkBlogAuth = async (req:Request, res:Response, next:NextFunction) => {
 
+    passport.authenticate('jwt', { session: false }, (err:Error, user:any, info:any) => {
 
-export {checkAuth,checkAdmin}
+        if (!req.user) {
+            return res.status(404).json({ message: 'Invalid User' });
+        }
+        
+        if(!user?.admin === true && !user.blogs.includes(req?.params.id)) {
+                
+                return res.status(401).json({ message: 'Unauthorized access to this action' });
+        }
+
+        next();
+    })(req, res, next);
+
+}
+
+export {checkAuth,checkAdmin,checkBlogAuth}
 
 
   

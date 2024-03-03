@@ -9,10 +9,10 @@ import { title } from 'process';
 dotenv.config();
 
 
-// const db = process.env.DATABASE_URL
+const db = process.env.DATABASE_URL
   
 beforeAll(async () => {
-    await mongoose.connect("mongodb+srv://kayigm1:kayigm132@post.kwblqh9.mongodb.net/?retryWrites=true&w=majority");
+    await mongoose.connect(db as string);
 }, 50000);
 
 afterAll(async () => {

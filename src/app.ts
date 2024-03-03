@@ -35,7 +35,6 @@ app.use(express.urlencoded({extended: false}))
 
 
 
-//Routers 
 app.use("/api", router);
         
 

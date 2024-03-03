@@ -116,6 +116,6 @@ router.post("/signin",validUser,(req: Request, res: Response, next: NextFunction
   })(req, res, next);
 })
 
-// router.post('/admin', registerAdmin)
+
 export {router}
 

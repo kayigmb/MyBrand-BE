@@ -66,10 +66,8 @@ router.get('/protected',
       async(req:Request, res:Response) => {
           res.json(
             { message: 'You are authorized to access this resource',
-            "user":{
-              user: req.user
-              
-            } }
+              user:req.user
+           }
           );
 });
 
@@ -80,9 +78,7 @@ router.post('/signup',
     async (req: Request, res: Response, next: NextFunction) => {
             res.json({
               "message":"Successfully signed up",
-              "user":{
                 user: req.user
-              }
                                 
             });
     }

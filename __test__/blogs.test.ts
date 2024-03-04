@@ -33,13 +33,29 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY1ZDc2
 describe('User', () => {
 
   // it creates a new user and dont touch now 
+
+
+
+
   it('should register user', async () => {
+
     const res = await supertest(app).post('/api/signup').send({
-     username:"user44578",
-     password:"user123234"
-    });
+          username:"user44578",
+          password:"user123234"
+        });
+
+
     expect(res.statusCode).toBe(401)
   }); 
+
+
+
+
+
+
+
+
+
 
   it('it should not accept same user', async () => {
     const res = await supertest(app).post('/api/signup').send({
@@ -48,6 +64,10 @@ describe('User', () => {
      });
      expect(res.statusCode).toBe(401)
   })
+
+
+
+
   it('should not accept invalid username', async () => {
     const res = await supertest(app)
       .post('/api/signup')
@@ -56,6 +76,10 @@ describe('User', () => {
       });
     expect(res.body.error).toContain('Username is missing');
   });
+
+
+
+
 
   it('should not allow username with less than 3 characters', async () => {
     const res = await supertest(app)
@@ -434,8 +458,11 @@ describe('messages', () => {
 
 
 describe('likes', () => {
+
           const id =  '65d5fa7938ef3716c37fa118'; 
           const tokenLikes ='fasdfadf6562545vcvasaadf42342'
+
+
       it('should return the number of likes of a blog',async()=>{
 
         const res = await supertest(app)
@@ -445,10 +472,16 @@ describe('likes', () => {
       })
 
       it('should put a new like', async()=>{
+
         const res = await supertest(app)
+
           .put(`/api/blogs/${id}/likes`)
+
           .set('Authorization',`Bearer ${token}`)
+
+
         expect(res.statusCode).toBe(200)
+        
       })
 
       it('should bring invalid user', async()=>{
@@ -465,6 +498,8 @@ describe('likes', () => {
           .set('Authorization',`Bearer ${token}`)
          expect(res.statusCode).toBe(500)
       })
+
+
       it('should bring invalid blog', async()=>{
         const id = '65d5975dd75cf7595f550381'
         const res = await supertest(app)
@@ -473,12 +508,25 @@ describe('likes', () => {
          expect(res.statusCode).toBe(404)
       })
 
+
+
       it('should bring invalid blog on like show', async()=>{
-        const id = '65d5975dd75cf7595f550381'
-        const res = await supertest(app)
-          .get(`/api/blogs/${id}/likes`)
-          .set('Authorization',`Bearer ${token}`)
-         expect(res.statusCode).toBe(404)
+
+
+          const id = '65d5975dd75cf7595f550381'
+
+
+
+          const res = await supertest(app)
+          
+            .get(`/api/blogs/${id}/likes`)
+
+            .set('Authorization',`Bearer ${token}`)
+
+
+
+          expect(res.statusCode).toBe(404)
+
       })
 
 

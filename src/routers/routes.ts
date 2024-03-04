@@ -63,8 +63,14 @@ router.get("/blogs/:id/likes", likeShow)
 
 router.get('/protected',
   checkAuth,
-      (req:Request, res:Response) => {
-          res.json({ message: 'You are authorized to access this resource' });
+      async(req:Request, res:Response) => {
+          res.json(
+            { message: 'You are authorized to access this resource',
+            "user":{
+              user: req.user
+              
+            } }
+          );
 });
 
 

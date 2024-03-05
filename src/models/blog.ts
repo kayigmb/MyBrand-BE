@@ -2,12 +2,12 @@ import { Schema, model, Types} from  "mongoose"
 import {blog} from '../utils/types';
 import { required } from "joi";
 
-const blogSchema = new Schema({
+const blogSchema = new Schema<blog>({
     title: {
         type: String
     },
     author: {
-        type: String
+        type: String,
     },
     image: String,
     content: {

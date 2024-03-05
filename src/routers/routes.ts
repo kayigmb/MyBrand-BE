@@ -111,7 +111,7 @@ router.post("/signin",validUser,(req: Request, res: Response, next: NextFunction
               username: user?.username,
               admin: user?.admin,
               token: token,
-              blogs:user?.blogsCreated
+              blogCreated:user?.blogsCreated
           }
         })
         

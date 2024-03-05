@@ -45,21 +45,14 @@ const blogDelete = async (req:Request, res:Response) => {
     
         if (!blogDelete) {
             return res.status(404).json({ error: "Blog not found" });
-        }
-
-        const userExist = req.user;
-        const userExisting = await UserModel.findOne(userExist);
-
-        if (userExisting && userExisting.blogsCreated) {
-            userExisting.blogsCreated = userExisting.blogsCreated.filter(blog => blog.toString() !== blogId);
-            
-            await userExisting.save();
+           
         }
 
         res.status(200).json("BLOG SUCCESSFULLY DELETED ");
         
     } catch (error) {
         res.status(500).json({ error: "Internal server error" });
+        
     }
 }
 
@@ -100,11 +93,11 @@ const blogPost = async (req:Request, res:Response) => {
 
             await blog.save();
 
-            // Update user's blogsCreated array
-            userExisting?.blogsCreated?.push(
-                blog.id
-            );
-            await userExisting?.save();
+                // Update user's blogsCreated array
+                userExisting?.blogsCreated?.push(
+                    blog.id
+                );
+                await userExisting?.save();
 
             return res.status(200).json(blog);
         }

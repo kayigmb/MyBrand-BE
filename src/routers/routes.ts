@@ -28,10 +28,10 @@ router.get("/blogs/:id", blogGet);
 router.post("/blogs",checkAuth,upload.single('image'),blogPost);
 
 // Update blog
-router.patch("/blogs/:id",checkAuth,checkBlogAuth,blogUpdate);
+router.patch("/blogs/:id",checkAuth,checkAdmin,blogUpdate);
 
 // delete blog
-router.delete("/blogs/:id",checkAuth,checkBlogAuth, blogDelete);
+router.delete("/blogs/:id",checkAuth,checkAdmin, blogDelete);
 
 
 //Comment router

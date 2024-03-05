@@ -46,6 +46,16 @@ const blogDelete = async (req:Request, res:Response) => {
         if (!blogDelete) {
             return res.status(404).json({ error: "Blog not found" });
         }
+
+        const userExist = req.user;
+        const userExisting = await UserModel.findOne(userExist);
+
+        if (userExisting && userExisting.blogsCreated) {
+            userExisting.blogsCreated = userExisting.blogsCreated.filter(blog => blog.toString() !== blogId);
+            
+            await userExisting.save();
+        }
+
         res.status(200).json("BLOG SUCCESSFULLY DELETED ");
         
     } catch (error) {

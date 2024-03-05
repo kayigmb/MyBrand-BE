@@ -52,9 +52,6 @@ const validateBlog= (blog:blog)=>{
         title: Joi.string().required().messages({
             'any.required': 'title is missing'
         }),
-        author:Joi.string().required().messages({
-            'any.required': 'author is missing'
-        }),
         content: Joi.string().required().messages({
             'any.required': 'Content is missing'
         })

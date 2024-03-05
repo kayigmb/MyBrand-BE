@@ -101,7 +101,7 @@ router.post("/signin",validUser,(req: Request, res: Response, next: NextFunction
         }
         
 
-        const body = { _id: user._id, username: user.username, admin:user.admin, blogs:user?.blogsCreated };
+        const body = { _id: user._id, username: user.username, admin:user.admin, blogsCreated:user?.blogsCreated };
 
         const token = Jwt.sign({ user: body }, 'token');
           

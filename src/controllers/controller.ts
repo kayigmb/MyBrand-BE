@@ -5,7 +5,8 @@ import { cloudinary} from '../utils/cloudinary';
 import { UserModel } from '../models/authModel';
 import { upload } from '../utils/multer';
 import { validateBlog } from '../utils/validation';
-
+import { User } from '../utils/types';
+import { Console } from 'console';
 
 
 // blog show
@@ -72,12 +73,12 @@ const blogPost = async (req:Request, res:Response) => {
 
         const blogDB = await Blog.findOne({ title });
        
-
-        const userExist = req.user;
-        const userExisting = await UserModel.findOne(userExist);
+        const userExist = req.user as User;
         
         if (!req.file) return res.status(403).send({ error: "Error uploading, file not found" });
         const resultFile = await cloudinary.uploader.upload(req.file.path);
+
+        // console.log(userExist.username)
 
         if (blogDB) {
             return res.status(409).json("Title already exists");
@@ -86,19 +87,13 @@ const blogPost = async (req:Request, res:Response) => {
         {
             const blog = new Blog({
                 title,
-                author: userExisting?.username,
+                author: userExist?.username,
                 image: resultFile.url,
                 content,
             });
 
             await blog.save();
-
-                // Update user's blogsCreated array
-                userExisting?.blogsCreated?.push(
-                    blog.id
-                );
-                await userExisting?.save();
-
+            
             return res.status(200).json(blog);
         }
     } 

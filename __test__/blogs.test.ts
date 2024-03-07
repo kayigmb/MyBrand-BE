@@ -229,7 +229,7 @@ describe('Blog ', () => {
   });
 
   it('should view one blog if blog does not exist', async () => {
-      const id =  '65d59c048c969b6c9b60d8f3'; 
+      const id =  '65e9cce5b2433fc330bce351'; 
         const res = await supertest(app).get(`/api/blogs/${id}`);
       expect(res.statusCode).toBe(200); 
   });
@@ -318,7 +318,7 @@ describe('Blog ', () => {
   })
   
   it('should patch the blog', async() => {
-        const id =  '65d59c048c969b6c9b60d8f3'; 
+        const id =  '65e9cce5b2433fc330bce351'; 
         const res = await supertest(app).patch(`/api/blogs/${id}`)
         .set('Authorization', `Bearer ${token}`)
         .send({
@@ -459,7 +459,7 @@ describe('messages', () => {
 
 describe('likes', () => {
 
-          const id =  '65d59c048c969b6c9b60d8f3'; 
+          const id =  '65e9cce5b2433fc330bce351'; 
           const tokenLikes ='fasdfadf6562545vcvasaadf42342'
 
 
@@ -545,7 +545,7 @@ describe('likes', () => {
 
 
 describe('Comments',()=>{
-  const id =  '65d59c048c969b6c9b60d8f3'; 
+  const id =  '65e9cce5b2433fc330bce351'; 
     it('should return a list of comments', async()=>{
         const res =  await supertest(app)
           .get(`/api/blogs/${id}/comments`)

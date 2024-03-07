@@ -107,21 +107,34 @@ const blogPost = async (req:Request, res:Response) => {
 
 
 
-
 // Blog Update
 const blogUpdate = async (req: Request, res: Response) => {
     try {
-        console.log("Updating blog with ID:", req.params.id);
-        
-        const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
+
+        const blog = await Blog.findOne({ _id: req.params.id })
         
         if (!blog) {
             console.log("Blog not found");
             return res.status(404).json({ error: "Blog not found" });
         }
+        if(req.body.title){
+            blog.title = req.body.title;
+        }
         
-        console.log("Blog updated successfully:", blog);
-        res.status(200).json(blog);
+        if(req.body.content){
+            blog.content = req.body.content;
+        }
+
+        if(req.file){
+            const resultFile=await cloudinary.uploader.upload(req.file.path)
+           blog.image=resultFile.url
+        }
+
+        await blog.save();
+
+        console.log("Blog updated successfully:");
+        res.status(200).json("Success Updating");
+
     } catch (error) {
         console.error("Error updating blog:", error);
         res.status(500).json({ error: "Internal server error" });

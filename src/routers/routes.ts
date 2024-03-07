@@ -28,7 +28,7 @@ router.get("/blogs/:id", blogGet);
 router.post("/blogs",checkAuth,upload.single('image'),blogPost);
 
 // Update blog
-router.patch("/blogs/:id",checkAuth,checkAdmin,blogUpdate);
+router.patch("/blogs/:id",checkAuth,checkAdmin,upload.single('image'),blogUpdate);
 
 // delete blog
 router.delete("/blogs/:id",checkAuth,checkAdmin, blogDelete);

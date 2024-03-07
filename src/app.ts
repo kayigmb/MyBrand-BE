@@ -11,7 +11,6 @@ import './utils/passport'
 import documentation from './utils/swagger.json'
 import swaggerUi from  "swagger-ui-express";
 import cors from 'cors'
-
 const app = express()
 
 

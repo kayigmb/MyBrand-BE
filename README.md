@@ -1,4 +1,4 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/kayigmb/MyBrand-BE/tree/ft-circleci.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/kayigmb/MyBrand-BE/tree/main)[![Coverage Status](https://coveralls.io/repos/github/kayigmb/MyBrand-BE/badge.svg?branch=ft-circleci)](https://coveralls.io/github/kayigmb/MyBrand-BE?branch=ft-circleci)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/kayigmb/MyBrand-BE/tree/ft-circleci.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/kayigmb/MyBrand-BE/tree)[![Coverage Status](https://coveralls.io/repos/github/kayigmb/MyBrand-BE/badge.svg?branch=ft-circleci)](https://coveralls.io/github/kayigmb/MyBrand-BE?branch=ft-circleci)
 
 
 ##### Backend API using Node Js.

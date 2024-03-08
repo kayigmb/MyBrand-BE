@@ -1,35 +1,26 @@
-import express from "express";
+import express, {NextFunction, Request,Response} from "express";
 import mongoose from "mongoose";
-import {blogRouter} from "./routers/bRoute";
-import { cRouter } from "./routers/cRoute";
-import { likeRouter } from "./routers/likeroute";
-import { qRouter } from "./routers/qRoute";
+import { router } from "./routers/routes";
 import dotenv from 'dotenv'
-import cookieParser from 'cookie-parser';
+import bodyParser from "body-parser";
+import session from 'express-session';
+import cookieParser from 'cookie-parser'
+import passport from "passport";
+import './utils/passport'
+import  {app} from "./app";
+
 
 dotenv.config();
 
-const app = express();
 
 const port = process.env.PORT;
 const databaseUrl = process.env.DATABASE_URL;
 
 mongoose
-    .connect(databaseUrl)
+    .connect(databaseUrl as string)
     .then(() => {
-        console.log("Connected to MongoDB.");
         
-        app.use(express.json());
-
-        // cookie parser secret
-        app.use(cookieParser('like'));
-
-        //Routers 
-        app.use("/api", blogRouter);
-        app.use("/api", cRouter);
-        app.use("/api", qRouter);
-        app.use("/api", likeRouter);
-
+        console.log("Connected to MongoDB.");
         app.listen(port, () => {
             console.log(`Server is running on port ${port}`);
         });
@@ -38,4 +29,4 @@ mongoose
         console.error("Error connecting to MongoDB:", error);
         process.exit(1); 
     });
-
+    

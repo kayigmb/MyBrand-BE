@@ -2,6 +2,7 @@ import express,{ Request, Response } from "express";
 import { Blog } from "../models/blog";
 import { v4 as uuidv4 } from 'uuid';
 import { Types } from 'mongoose';
+import { UserModel } from "../models/authModel";
 
 const like = async (req: Request, res: Response) => {
     try {
@@ -9,35 +10,61 @@ const like = async (req: Request, res: Response) => {
         const blog = await Blog.findById(blogId);
 
         if (!blog) {
-            return res.status(404).send({ error: "Blog not found" });
+            return res.status(404).json({ error: "Blog not found" });
         }
 
-        let userId = req.cookies.userId;
+        const userId = req.user;
 
-        if (!userId) {
+        const userExisting = await UserModel.findOne(userId);
 
-            userId = uuidv4();   
-                
-            res.cookie('userId', userId, { maxAge: 60000 * 60 * 60 * 24 *365});            
+        if (!userExisting) {
+
+            return res.status(401).json({ error: "User not found" });
         }
 
-        const userIdObject = Types.ObjectId.createFromTime(parseInt(userId, 16));
+  
+        const blogLikes = blog.likes as Types.ObjectId[];
 
-        const userLikedIndex = blog.likes.findIndex(like => like.user.equals(userIdObject));
+        const userLikedIndex = blogLikes.findIndex((user) => user.equals(userExisting._id));
 
         if (userLikedIndex === -1) {
-            blog.likes.push({ user: userIdObject });
+            blogLikes.push(userExisting._id);
             await blog.save();
-            res.status(200).send('Blog post was liked ');
+            res.status(200).json({message: 'Blog post liked ',
+            blog: blogId
+        });
         } else {
-            blog.likes.splice(userLikedIndex, 1);
+            blogLikes.splice(userLikedIndex, 1);
             await blog.save();
-            res.status(200).send('Blog post was unliked');
+            res.status(200).json({message: 'Blog post unliked ',
+            blog: blogId
+        });
         }
     } catch (error) {
         console.error("Internal error:", error);
-        res.status(500).send({ error: "Error with liking" });
+        res.status(500).json({ error: "internal server error" });
     }
 }
 
-export { like };
+const likeShow = async (req:Request, res:Response) => {
+    try{
+        console.log(req.user)
+        const blogId = req.params.id;
+        const blog = await Blog.findById(blogId);
+
+        if (!blog) {
+            return res.status(404).json({ error: "Blog not found" });
+        }
+        
+        const likes = blog.likes.length;
+        res.status(200).json({ likes});
+        
+    }catch (error) {
+        console.log(error);
+        res.status(500).json({error: 'internal error'});
+
+    }
+}
+
+
+export { like, likeShow};

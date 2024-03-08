@@ -13,7 +13,7 @@ interface blog{
     author:string,
     image:string,
     content:string,
-    likes:[{ user: Types.ObjectId }];
+    likes:[]
 }
 
 interface message {
@@ -22,5 +22,20 @@ interface message {
     content:string
 }
 
+interface User{
+    username: string,
+    password:string,
+    admin?:Boolean;
+    blogsCreated?:Types.ObjectId[]
+}
 
-export {comment,blog, message}
+interface JwtPayload {
+    user: {
+      _id: any;
+      username: string;
+      password: string;
+    };
+}
+
+
+export {comment,blog, message,User,JwtPayload}

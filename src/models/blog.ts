@@ -1,19 +1,17 @@
 import { Schema, model, Types} from  "mongoose"
 import {blog} from '../utils/types';
+import { required } from "joi";
 
-const blogSchema = new Schema({
+const blogSchema = new Schema<blog>({
     title: {
-        type: String,
-        required: true,
+        type: String
     },
     author: {
         type: String,
-        required: true,
     },
     image: String,
     content: {
-        type: String,
-        required: true,
+        type: String
     },
     likes:[{ user: { type: Schema.Types.ObjectId, ref: 'User' } }],
 });

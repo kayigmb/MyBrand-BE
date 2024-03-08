@@ -132,7 +132,7 @@ const blogUpdate = async (req: Request, res: Response) => {
            blog.image=resultFile.url
         }
 
-        const blogDB = await Blog.findOne({title:req.body.title});
+        const blogDB = await Blog.findOne({ title: req.body.title, _id: { $ne: req.params.id } });
 
         if (blogDB) {
             return res.status(409).json("Title already exists");

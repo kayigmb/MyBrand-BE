@@ -112,7 +112,9 @@ const blogUpdate = async (req: Request, res: Response) => {
     try {
 
         const blog = await Blog.findOne({ _id: req.params.id })
+
         
+
         if (!blog) {
             console.log("Blog not found");
             return res.status(404).json({ error: "Blog not found" });
@@ -128,6 +130,12 @@ const blogUpdate = async (req: Request, res: Response) => {
         if(req.file){
             const resultFile=await cloudinary.uploader.upload(req.file.path)
            blog.image=resultFile.url
+        }
+
+        const blogDB = await Blog.findOne({title:req.body.title});
+
+        if (blogDB) {
+            return res.status(409).json("Title already exists");
         }
 
         await blog.save();

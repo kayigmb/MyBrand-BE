@@ -78,8 +78,7 @@ router.post('/signup',
     async (req: Request, res: Response, next: NextFunction) => {
             res.json({
               "message":"Successfully signed up",
-                user: req.user
-                                
+                user: req.user                
             });
     }
 );

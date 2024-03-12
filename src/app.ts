@@ -23,7 +23,7 @@ app.use(session({
 }));  
 
 
-app.use('/api/swagger', swaggerUi.serve, swaggerUi.setup(documentation));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(documentation));
 
 app.use(passport.initialize()); // don't touch for real
 
